@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 
-import MeathLogo from '../../../Resources/Icons/meath-gaa-logo.png'
 import classes from './Icon.module.css';
 
 const Icon = props => {
@@ -9,7 +8,7 @@ const Icon = props => {
     const Link_template = <div
         className={classes.Icon_Cover}
         style={{
-            background: `url(${MeathLogo}) no-repeat`,
+            background: `url(${props.url}) no-repeat`,
             height: props.height,
             width: props.width,
         }}

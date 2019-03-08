@@ -1,0 +1,18 @@
+footer {
+    background: #083512;
+    text-align: center;
+    font-size: 16px;
+    color: #ffffff;
+    padding: 15px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Footer_Logo {
+    margin-bottom: 10px;
+}
+
+/* footer .Icon_Cover {
+    margin: 0 auto;
+} */

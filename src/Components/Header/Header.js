@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button'
-import MeathLogo from '../UI/Icon/Icon'
+import MeathIcon from '../UI/Icon/Icon'
+import MeathLogo from '../../Resources/Icons/meath-gaa-logo.png'
 
 import classes from './Header.module.css'
 
@@ -18,7 +19,8 @@ const Header = () => {
         }}>
             <Toolbar>
                 <div className={ classes.Icon }>
-                    <MeathLogo 
+                    <MeathIcon
+                    url={ `${MeathLogo}` }
                     link={ true }
                     LinkTo="/"
                     width="50px"
