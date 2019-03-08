@@ -10,11 +10,6 @@
     flex-grow: 1;
 }
 
-.Link {
-    color: white;
-    text-decoration: none;
-}
-
 .Link:hover {
     color: #FFD306;
 }
