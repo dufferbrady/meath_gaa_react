@@ -1,9 +1,20 @@
 .Header {
     position: fixed;
-    height: 65px;
+    flex-grow: 1;
+    padding: 5px 0;
     background: #259C41;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
     width: 100%;
+}
+
+.Icon {
+    flex-grow: 1;
+}
+
+.Link {
+    color: white;
+    text-decoration: none;
+}
+
+.Link:hover {
+    color: #FFD306;
 }
