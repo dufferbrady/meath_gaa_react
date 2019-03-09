@@ -1,0 +1,37 @@
+.Stripes_Wrapper {
+    margin: 0 auto;
+    position: relative;
+    width: 80%;
+    display: flex;
+    flex-flow: row nowrap;
+    /* justify-content: space-evenly; */
+}
+
+.Stripe {
+    width: 230px;
+    height: 1200px;
+}
+
+.Stripe_StripeOne {
+    background: #259C41;
+    width: 230px;
+    height: 1200px;
+}
+
+.Stripe_StripeTwo {
+    background: #FFD306;
+    width: 230px;
+    height: 1200px;
+}
+
+.Stripe_StripeThree {
+    background: #259C41;
+    width: 230px;
+    height: 1200px;
+}
+
+/* .Stripe {
+    width: 15%;
+    height: 1200px;
+    position: absolute;
+} */
