@@ -7,9 +7,7 @@ const Layout = props => {
     return (
         <div>
             <Header />
-            <div style={{
-                height: '1000px'
-            }}>
+            <div>
                 { props.children }
             </div>
             <Footer />
