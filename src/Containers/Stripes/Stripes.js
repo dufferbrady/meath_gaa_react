@@ -23,7 +23,7 @@ class Stripes extends Component {
                 left: 30,
                 rotate: 25,
                 top: -150,
-                delay: 300
+                delay: 400
             },
             {
                 name: 'StripeThree',
@@ -31,7 +31,7 @@ class Stripes extends Component {
                 left: 60,
                 rotate: 25,
                 top: -150,
-                delay: 600
+                delay: 800
             }
         ]
     }

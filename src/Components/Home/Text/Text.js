@@ -6,7 +6,7 @@ import classes from './Text.module.css'
 const Text = () => {
     return (
         <div className={ classes.Text }>
-            <Zoom left cascade delay={300}>
+            <Zoom left cascade delay={400}>
                 Meath GAA
             </Zoom>
         </div>
