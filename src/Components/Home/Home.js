@@ -1,14 +1,14 @@
 import React from 'react';
 
+import Featured from '../Featured/Featured'
 import classes from './Home.module.css'
-import Stripes from '../../Containers/Stripes/Stripes'
-import Text from './Text/Text'
+import Matches from '../Matches/Matches';
 
 const Home = () => {
     return (
-        <div className={classes.Home_Wrapper}>
-            <Text />
-            <Stripes />
+        <div className={ classes.Home }>
+            <Featured />
+            <Matches />
         </div>
     );
 };

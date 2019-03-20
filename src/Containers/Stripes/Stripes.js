@@ -59,11 +59,6 @@ class Stripes extends Component {
                         rotate: [item.rotate],
                         top: [item.top],
                         timing: { delay: item.delay, duration: 200, ease: easePolyOut },
-                        events: {
-                            end() {
-                                console.log('[Enter Function]', item.background)
-                            }
-                        }
                     })}
 
                     interpolation={(begValue, endValue, attr) => {
@@ -77,7 +72,6 @@ class Stripes extends Component {
                     {nodes => (
                         <div className={classes.Stripes_Wrapper}>
                             {nodes.map(({ key, state: { background, opacity, left, rotate, top } }) => {
-                                console.log('[Map Function]', background)
                                 return (
                                     <div
                                         className={classes.Stripe}
