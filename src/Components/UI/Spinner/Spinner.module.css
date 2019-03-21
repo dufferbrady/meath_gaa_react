@@ -1,0 +1,28 @@
+.Loader {
+  outline: none;
+  background-color: transparent;
+  /* position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0; */
+  margin: auto;
+  width: 150px;
+  height: 150px;
+  border-color: #259C41;
+  border-width: 15px;
+  border-style: solid;
+  border-radius: 50%;
+  font-size:0;
+  border-left-color: #FFD306;
+  animation: rotating 2s 0.25s linear infinite;
+}
+  
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

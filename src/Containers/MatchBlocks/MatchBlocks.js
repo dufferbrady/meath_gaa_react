@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { firebaseDB } from '../../Firebase'
+import Spinner from '../../Components/UI/Spinner/Spinner'
 
 class MatchBlocks extends Component {
 
@@ -32,11 +33,11 @@ class MatchBlocks extends Component {
 
     render() {
         console.log(this.state.matches)
-        let referees = null;
-        if (!this.state.matches) {
-            referees = "no referees :("
+        let matches = null;
+        if (this.state.loading) {
+            matches = <Spinner />
         } else {
-            referees = this.state.matches.map(match => (
+            matches = this.state.matches.map(match => (
                 <div key={ match.id }>
                     {match.referee}
                 </div>
@@ -45,7 +46,7 @@ class MatchBlocks extends Component {
 
         return (
             <div>
-                { referees }
+                { matches }
             </div>
         );
     }
