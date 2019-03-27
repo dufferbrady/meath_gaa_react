@@ -1,0 +1,14 @@
+.Player_Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Players_Image {
+    height: 12em;
+}
+
+.Player_Name {
+    color: #259C41;
+    font-size: 1.2em;
+}

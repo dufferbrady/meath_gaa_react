@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import classes from './Matchblocks.module.css'
-import { firebaseDB } from '../../Firebase'
+import { firebaseMatches } from '../../Firebase'
 import Spinner from '../../Components/UI/Spinner/Spinner'
 import Matchblock from '../../Components/Matchblock/Matchblock'
 
@@ -13,7 +13,7 @@ class MatchBlocks extends Component {
     }
 
     componentDidMount() {
-        firebaseDB.ref('matches').once('value').then(snapshot => {
+        firebaseMatches.once('value').then(snapshot => {
             this.getMatchesHandler(snapshot.val());
         });
     }
