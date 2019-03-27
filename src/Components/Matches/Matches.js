@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MatchBlocks from '../../Containers/MatchBlocks/MatchBlocks'
+import Matchblocks from '../../Containers/Matchblocks/Matchblocks'
 import Tag from '../UI/Tag/Tag'
 import classes from './Matches.module.css'
 
@@ -15,7 +15,7 @@ const Matches = () => {
                 Matches
             </Tag>
 
-            <MatchBlocks />
+            <Matchblocks />
 
             <Tag
             background='#083512'

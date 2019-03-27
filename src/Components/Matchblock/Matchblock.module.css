@@ -1,0 +1,34 @@
+.Match_Container {
+    width: 100%;
+    /* height: 100px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid linear-gradient(to right, #259C41, #FFD306, #259C41);
+}
+
+.Match_Header {
+    letter-spacing: 1.5px;
+    color: #083512;
+}
+
+.Match_Fixture {
+    width: 100%;
+    background-color: #FFD306;
+    color: #083512;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.Match_Info_Container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 15px 0;
+}
+
+.Match_Stat {
+    color: #083512;
+    padding: 0 10px;
+}

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 
+import classes from './Matchblocks.module.css'
 import { firebaseDB } from '../../Firebase'
 import Spinner from '../../Components/UI/Spinner/Spinner'
+import Matchblock from '../../Components/Matchblock/Matchblock'
 
 class MatchBlocks extends Component {
 
@@ -38,15 +40,23 @@ class MatchBlocks extends Component {
             matches = <Spinner />
         } else {
             matches = this.state.matches.map(match => (
-                <div key={ match.id }>
-                    {match.referee}
+                <div
+                    key={match.id}
+                >
+                    <Matchblock 
+                    Date={ match.date }
+                    fixture={ match.fixture }
+                    homeTeam={ match.home }
+                    homeResult={ match.resultHome }
+                    awayTeam={ match.away }
+                    awayResult={ match.resultAway }/>
                 </div>
             ));
         }
 
         return (
-            <div>
-                { matches }
+            <div className={classes.Matchblock_container}>
+                {matches}
             </div>
         );
     }
