@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { firebasePlayers } from '../../Firebase'
+import Fade from 'react-reveal/Fade';
 
 import classes from './PlayersCards.module.css'
 import Spinner from '../../Components/UI/Spinner/Spinner'
@@ -9,7 +10,8 @@ class PlayersCards extends Component {
 
     state = {
         players: null,
-        loading: true
+        loading: true,
+        delay: [200, 400, 600, 800, 1000]
     }
 
     componentDidMount() {
@@ -38,17 +40,19 @@ class PlayersCards extends Component {
         if (this.state.loading) {
             players = <Spinner />
         } else {
-            players = this.state.players.map(player => (
-                <div
-                    key={player.id}
-                >
-                    <PlayerCard
-                        name={player.name}
-                        image={player.image}
-                        club={player.club}
-                        position={player.position}
-                    />
-                </div>
+            players = this.state.players.map((player, index) => (
+                <Fade right delay={this.state.delay[index]}>
+                    <div
+                        key={player.id}
+                    >
+                        <PlayerCard
+                            name={player.name}
+                            image={player.image}
+                            club={player.club}
+                            position={player.position}
+                        />
+                    </div>
+                </Fade>
             ));
         }
         return (

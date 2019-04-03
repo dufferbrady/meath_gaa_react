@@ -7,16 +7,23 @@ import classes from './FollowUs.module.css'
 const FollowUs = () => {
     return (
         <div className={classes.FollowUs_bck}>
-            <TwitterTimelineEmbed
-                sourceType="profile"
-                screenName="MeathGaa"
-                options={{ height: 400 }}
-            />
-            <FacebookProvider appId="360829397974813">
-                <Page 
-                    href="https://www.facebook.com/MeathGAAOfficial/?eid=ARCU2s3x5aOt0smwQLi9f8eX_P-w-TTe7FMpQXAOyCxQ-dMtBTrMZjDoYS8Bty3lCpUpHb1j-fkVy_hr" 
-                    tabs="timeline" />
-            </FacebookProvider>
+            <div className={ classes.Twitter }>
+                <h3>Follow us on twitter</h3>
+                <TwitterTimelineEmbed
+                    sourceType="profile"
+                    screenName="MeathGaa"
+                    options={{ height: 400 }}
+                />
+            </div>
+            <div className={ classes.Facebook }>
+                <h3>like us on facebook</h3>
+                <FacebookProvider appId="360829397974813">
+                    <Page
+                        className={ classes.Facebook_Page }
+                        href="https://www.facebook.com/MeathGAAOfficial/?eid=ARCU2s3x5aOt0smwQLi9f8eX_P-w-TTe7FMpQXAOyCxQ-dMtBTrMZjDoYS8Bty3lCpUpHb1j-fkVy_hr"
+                        tabs="timeline" />
+                </FacebookProvider>
+            </div>
         </div>
     );
 };

@@ -1,3 +1,30 @@
 .FollowUs_bck {
     background: #259C41;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.FollowUs_bck h3 {
+    margin-bottom: 0;
+    background: #083512;
+    color: white;
+    text-transform: capitalize;
+    padding: 0.5em 0 0.5em 0.5em;
+}
+
+.Twitter {
+    margin-top: 50px;
+    width: 40%;
+    /* margin-right: 10%; */
+}
+
+.Facebook {
+    margin-top: 50px;
+    width: 40%;
+}
+
+.Facebook_Page {
+    width: 600px;
 }
