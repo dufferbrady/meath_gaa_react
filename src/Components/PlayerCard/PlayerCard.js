@@ -8,7 +8,9 @@ const PlayerCard = props => {
             <div className={ classes.Player_Name }>
                 {props.name}
             </div>
-            <div>{props.position}</div>
+            <div className={ classes.Player_Position }>
+                {props.position}
+            </div>
         </div>
     );
 };
