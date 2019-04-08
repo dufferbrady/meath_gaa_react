@@ -28,6 +28,24 @@
     margin: 15px 0;
 }
 
+.Hometeam_Container {
+    display: flex;
+    margin-right: 15px;
+}
+
+.Icon {
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    background-size: cover !important;
+    margin: 0 5px;
+}
+
+.Awayteam_Container {
+    display: flex;
+    margin-left: 15px;
+}
+
 .Match_Stat {
     color: #083512;
     padding: 0 10px;

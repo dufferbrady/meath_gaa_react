@@ -11,6 +11,7 @@ const Tag = (props) => {
         padding: '10px',
         display: 'inline-block',
         fontFamily: 'Poppins',
+        ...props.add
     }}>
         { props.children }
     </div>

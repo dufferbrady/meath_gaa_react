@@ -1,7 +1,7 @@
 import React from 'react';
 
 import MeathIcon from '../UI/Icon/Icon'
-import MeathLogo from '../../Resources/Icons/meath-gaa-logo.png'
+import MeathLogo from '../../Resources/Icons/Meath-logo.png'
 import classes from './Footer.module.css'
 
 const Footer = () => {

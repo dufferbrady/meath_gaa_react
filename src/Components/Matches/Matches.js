@@ -22,7 +22,10 @@ const Matches = () => {
             color='white'
             size='30px'
             link={true}
-            linkTo='/fixtures'>
+            linkTo='/fixtures'
+            add={{
+                marginTop: '30px'
+            }}>
                 See More Matches!
             </Tag>
         </div>

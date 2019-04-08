@@ -5,7 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button'
 import MeathIcon from '../UI/Icon/Icon'
-import MeathLogo from '../../Resources/Icons/meath-gaa-logo.png'
+import MeathLogo from '../../Resources/Icons/Meath-logo.png'
 
 import classes from './Header.module.css'
 
