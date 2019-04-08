@@ -18,6 +18,7 @@
     color: #083512;
     text-align: center;
     padding: 10px 0;
+    letter-spacing: 1px;
 }
 
 .Match_Info_Container {
@@ -49,4 +50,5 @@
 .Match_Stat {
     color: #083512;
     padding: 0 10px;
+    letter-spacing: 1px;
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Flip from 'react-reveal/Flip'
 
 import classes from './Matchblocks.module.css'
 import { firebaseMatches } from '../../Firebase'
@@ -9,7 +10,7 @@ class MatchBlocks extends Component {
 
     state = {
         matches: null,
-        loading: true
+        loading: true,
     }
 
     componentDidMount() {
@@ -39,17 +40,19 @@ class MatchBlocks extends Component {
         if (this.state.loading) {
             matches = <Spinner />
         } else {
-            matches = this.state.matches.map(match => (
+            matches = this.state.matches.map((match, index) => (
                 <div
                     key={match.id}
                 >
-                    <Matchblock 
-                    Date={ match.date }
-                    fixture={ match.fixture }
-                    homeTeam={ match.home }
-                    homeResult={ match.resultHome }
-                    awayTeam={ match.away }
-                    awayResult={ match.resultAway }/>
+                    <Flip top delay={200}>
+                        <Matchblock
+                            Date={match.date}
+                            fixture={match.fixture}
+                            homeTeam={match.home}
+                            homeResult={match.resultHome}
+                            awayTeam={match.away}
+                            awayResult={match.resultAway} />
+                    </Flip>
                 </div>
             ));
         }
