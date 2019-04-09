@@ -1,0 +1,23 @@
+.Fanzone {
+    background: url('/images/meathfans.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.Fanzone_Cover {
+    margin: 0;
+    padding: 0;
+    background: #083512;
+    opacity: 0.8;
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    position: absolute;
+    z-index: 1;
+}
+
+.Fanzone_Body {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    z-index: 100;
+}

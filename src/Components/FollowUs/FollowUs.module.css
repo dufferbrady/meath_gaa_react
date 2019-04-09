@@ -4,6 +4,8 @@
     flex-direction: row;
     width: 100%;
     justify-content: space-around;
+    position: relative;
+    z-index: 20;
 }
 
 .FollowUs_bck h3 {
