@@ -1,3 +1,9 @@
 .Form_Container {
    width: 50%;
+   margin: 25px 75px 50px 0;
+}
+
+.Form {
+    margin: 60px 0 0 75px;
+    background: #083512;
 }
