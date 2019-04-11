@@ -18,18 +18,20 @@ firebase.initializeApp(config);
 const firebaseDB = firebase.database();
 const firebaseMatches = firebaseDB.ref('matches');
 const firebasePlayers = firebaseDB.ref('players');
+const firebaseFanzone = firebaseDB.ref('fanzone')
 
-// const newPlayerRef = firebasePlayers.push();
-// newPlayerRef.set({
-//     name: "James McEntee",
-//     position: "Wing Back",
-//     club: "Curragha",
-//     image: "http://meath.gaa.ie/wp-content/uploads/2017/06/McEntee_James_631.png"
+// const newFanRef = firebaseFanzone.push();
+// newFanRef.set({
+//     firstName: "Andrew",
+//     lastName: "Brady",
+//     email: '92andrew.brady@gmail.com',
+//     club: 'Donaghmore/Ashbourne'
 // });
 
-// console.log(firebasePlayers);
+// console.log(firebaseFans);
 
 export { 
     firebaseMatches,
-    firebasePlayers
+    firebasePlayers,
+    firebaseFanzone
 };

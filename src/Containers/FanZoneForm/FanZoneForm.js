@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import classes from './FanZoneForm.module.css'
 import FormField from '../../Components/UI/FormField/FormField'
+import {firebaseFanzone} from '../../Firebase'
 
 class FanZoneForm extends Component {
 
@@ -21,7 +22,7 @@ class FanZoneForm extends Component {
                 showLabel: true,
                 validation: {
                     required: true,
-                    name: true
+                    email: false
                 },
                 valid: false,
                 validationMessage: ''
@@ -38,7 +39,7 @@ class FanZoneForm extends Component {
                 showLabel: true,
                 validation: {
                     required: true,
-                    name: true
+                    email: false
                 },
                 valid: false,
                 validationMessage: ''
@@ -133,7 +134,8 @@ class FanZoneForm extends Component {
                 },
                 showLabel: true,
                 validation: {
-                    required: true
+                    required: true,
+                    email: false
                 },
                 valid: false,
                 validationMessage: ''
@@ -141,23 +143,74 @@ class FanZoneForm extends Component {
         }
     }
 
+    validationHandler = input => {
+        let error = [true, ''];
+
+        if(input.validation.email) {
+            let valid = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(input.value);
+            let message = `${!valid ? 'Sorry, please give a valid email' : ''}`;
+            error = !valid ? [valid,message]: error;
+        }
+
+        if(input.validation.required) {
+            let valid = input.value.trim() !== '';
+            let message = `${!valid ? 'Sorry, please fill in all required fields' : ''}`;
+            error = !valid ? [valid,message]: error;
+        }
+
+        return error
+    }
+
     inputChangeHandler = input => {
         const newFormData = {...this.state.formData};
         const newFormElement = {...newFormData[input.id]};
+        // console.log(this.state.formData[input.id])
+        // console.log(newFormElement)
+        // console.log(input.e.target.value)
         
         newFormElement.value = input.e.target.value;
 
+        let validation = this.validationHandler(newFormElement);
+        newFormElement.valid = validation[0];
+        newFormElement.validationMessage = validation[1];
+
         newFormData[input.id] = newFormElement;
+        console.log(newFormData)
         this.setState({
-            formData: newFormData
+            formData: newFormData,
+            formError: false
         })
-        console.log(this.state.formData[input.id])
+        // console.log(this.state.formData[input.id].value)
+    }
+
+    submitFormHandler = event => {
+        event.preventDefault();
+
+        let submittedData = {};
+        let formIsValid = true;
+        for(let key in this.state.formData) {
+            submittedData[key] = this.state.formData[key].value;
+            formIsValid = this.state.formData[key].valid && formIsValid;
+        }
+
+        if(formIsValid) {
+            console.log(submittedData, submittedData.email)
+            firebaseFanzone.orderByChild('email').equalTo(submittedData.email).once('value')
+                .then(snapshot => {
+                    if(snapshot.val() === null) {
+                        firebaseFanzone.push(submittedData);
+                    }
+                })
+            // console.log(firebaseFanzone.orderByChild('email').equalTo(submittedData.email).once('value').then(snapshot => snapshot.val()))
+        } else {
+            this.setState({formError: true})
+        }
     }
 
     render() {
         return (
             <div className={classes.Form_Container}>
-                <div className={classes.Form}>
+                <form onSubmit={ (event)=> this.submitFormHandler(event)} className={classes.Form}>
                     <div className={classes.Form_Name}>
                         <div>
                             <FormField
@@ -221,11 +274,12 @@ class FanZoneForm extends Component {
                                 change={e => this.inputChangeHandler(e)}/>
                         </div>
                     </div>
+                    {this.state.formError ? <div>Sorry, something went wrong</div> : null}
                     <div className={classes.Privacy_Policy}>
                         By registering for DubZone, you agree to receive periodic communications about news and offers from Dublin GAA, which you can unsubscribe from at any time, and have read and understood our <span>Privacy Policy.</span>
                     </div>
-                    <button className={classes.SignUp}>Sign Me Up</button>
-                </div>
+                    <button onSubmit={ (event)=> this.submitFormHandler(event)} className={classes.SignUp}>Sign Me Up</button>
+                </form>
             </div>
         );
     }

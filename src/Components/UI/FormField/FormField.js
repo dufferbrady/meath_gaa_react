@@ -38,12 +38,12 @@ const FormField = ({ label, add, formData, id, change }) => {
                         </div>
                         : null}
                     <select
-                        //onSelect={e => change({ e, id })}
+                        onChange={e => change({ e, id })}
                         style={{
                             ...add
                         }}>
                         value={formData.value}
-                        <option value="">Please Select a Club</option>
+                        <option>Please Select a Club</option>
                         {
                             formData.config.options.map(club => (
                                 <option key={club.key} value={club.value}>
