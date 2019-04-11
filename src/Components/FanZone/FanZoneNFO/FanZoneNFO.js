@@ -60,7 +60,7 @@ const FanZoneNFO = () => {
                                 fontSize: '20px',
                                 color: '#FED206'
                             }}
-                        /><span>Behind-the-scenes insights like never before</span>
+                        /><span>Great competitions, goodies and prizes</span>
                     </div>
                 </div>
             </div>

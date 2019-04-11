@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './FormField.module.css';
 
-const FormField = ({ label, add, formData, id }) => {
+const FormField = ({ label, add, formData, id, change }) => {
 
     let formTemplate = null;
     switch (formData.element) {
@@ -17,6 +17,7 @@ const FormField = ({ label, add, formData, id }) => {
                         </div>
                         : null}
                     <input
+                        onChange={e => change({ e, id })}
                         style={{
                             ...add
                         }}
@@ -37,6 +38,7 @@ const FormField = ({ label, add, formData, id }) => {
                         </div>
                         : null}
                     <select
+                        //onSelect={e => change({ e, id })}
                         style={{
                             ...add
                         }}>

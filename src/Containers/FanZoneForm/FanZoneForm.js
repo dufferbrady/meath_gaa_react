@@ -16,7 +16,7 @@ class FanZoneForm extends Component {
                     name: 'firstName_input',
                     type: 'input',
                     placeholder: 'Enter your name here',
-                    label: 'First Name*'
+                    label: 'First Name *'
                 },
                 showLabel: true,
                 validation: {
@@ -33,7 +33,7 @@ class FanZoneForm extends Component {
                     name: 'lastName_input',
                     type: 'input',
                     placeholder: 'Enter your name here',
-                    label: 'Last Name*'
+                    label: 'Last Name *'
                 },
                 showLabel: true,
                 validation: {
@@ -50,7 +50,7 @@ class FanZoneForm extends Component {
                     name: 'email_input',
                     type: 'email',
                     placeholder: 'Enter your email here',
-                    label: 'Email*'
+                    label: 'Email *'
                 },
                 showLabel: true,
                 validation: {
@@ -64,7 +64,7 @@ class FanZoneForm extends Component {
                 element: 'select',
                 value: '',
                 config: {
-                    label: 'Select a Club*',
+                    label: 'Select a Club *',
                     name: 'select_club',
                     type: 'select',
                     options: [
@@ -140,6 +140,20 @@ class FanZoneForm extends Component {
             }
         }
     }
+
+    inputChangeHandler = input => {
+        const newFormData = {...this.state.formData};
+        const newFormElement = {...newFormData[input.id]};
+        
+        newFormElement.value = input.e.target.value;
+
+        newFormData[input.id] = newFormElement;
+        this.setState({
+            formData: newFormData
+        })
+        console.log(this.state.formData[input.id])
+    }
+
     render() {
         return (
             <div className={classes.Form_Container}>
@@ -148,7 +162,7 @@ class FanZoneForm extends Component {
                         <div>
                             <FormField
                                 add={{
-                                    width: '90%',
+                                    width: '95%',
                                     padding: '15px 10px',
                                     borderRadius: '4px',
                                     border: 'transparent',
@@ -156,24 +170,26 @@ class FanZoneForm extends Component {
                                     boxSizing: 'border-box'
                                 }}
                                 id={'firstName'}
-                                formData={this.state.formData.firstName} />
+                                formData={this.state.formData.firstName} 
+                                change={input => this.inputChangeHandler(input)} />
                         </div>
                         <div>
                             <FormField
                                 label={{
-                                    marginLeft: '10%'
+                                    marginLeft: '5%'
                                 }}
                                 add={{
-                                    width: '90%',
+                                    width: '95%',
                                     padding: '15px 10px',
                                     borderRadius: '4px',
                                     border: 'transparent',
                                     marginTop: '5px',
-                                    marginLeft: '10%',
+                                    marginLeft: '5%',
                                     boxSizing: 'border-box'
                                 }}
                                 id={'lastName'}
-                                formData={this.state.formData.lastName} />
+                                formData={this.state.formData.lastName} 
+                                change={input => this.inputChangeHandler(input)}/>
                         </div>
                     </div>
                     <div className={classes.Form_Info}>
@@ -188,7 +204,8 @@ class FanZoneForm extends Component {
                                     boxSizing: 'border-box'
                                 }}
                                 id={'email'}
-                                formData={this.state.formData.email} />
+                                formData={this.state.formData.email} 
+                                change={input => this.inputChangeHandler(input)}/>
                         </div>
                         <div className={ classes.Club }>
                             <FormField
@@ -200,7 +217,8 @@ class FanZoneForm extends Component {
                                     marginTop: '5px'
                                 }}
                                 id={'club'}
-                                formData={this.state.formData.club} />
+                                formData={this.state.formData.club} 
+                                change={e => this.inputChangeHandler(e)}/>
                         </div>
                     </div>
                     <div className={classes.Privacy_Policy}>
