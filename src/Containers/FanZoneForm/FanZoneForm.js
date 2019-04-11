@@ -144,18 +144,69 @@ class FanZoneForm extends Component {
         return (
             <div className={classes.Form_Container}>
                 <div className={classes.Form}>
-                    <FormField
-                        id={'firstName'}
-                        formData={this.state.formData.firstName} />
-                    <FormField
-                        id={'lastName'}
-                        formData={this.state.formData.lastName} />
-                    <FormField
-                        id={'email'}
-                        formData={this.state.formData.email} />
-                    <FormField
-                        id={'club'}
-                        formData={this.state.formData.club} />
+                    <div className={classes.Form_Name}>
+                        <div>
+                            <FormField
+                                add={{
+                                    width: '90%',
+                                    padding: '15px 10px',
+                                    borderRadius: '4px',
+                                    border: 'transparent',
+                                    marginTop: '5px',
+                                    boxSizing: 'border-box'
+                                }}
+                                id={'firstName'}
+                                formData={this.state.formData.firstName} />
+                        </div>
+                        <div>
+                            <FormField
+                                label={{
+                                    marginLeft: '10%'
+                                }}
+                                add={{
+                                    width: '90%',
+                                    padding: '15px 10px',
+                                    borderRadius: '4px',
+                                    border: 'transparent',
+                                    marginTop: '5px',
+                                    marginLeft: '10%',
+                                    boxSizing: 'border-box'
+                                }}
+                                id={'lastName'}
+                                formData={this.state.formData.lastName} />
+                        </div>
+                    </div>
+                    <div className={classes.Form_Info}>
+                        <div>
+                            <FormField
+                                add={{
+                                    width: '100%',
+                                    padding: '15px 10px',
+                                    borderRadius: '4px',
+                                    border: 'transparent',
+                                    marginTop: '5px',
+                                    boxSizing: 'border-box'
+                                }}
+                                id={'email'}
+                                formData={this.state.formData.email} />
+                        </div>
+                        <div className={ classes.Club }>
+                            <FormField
+                                add={{
+                                    width: '100%',
+                                    padding: '15px 10px',
+                                    borderRadius: '4px',
+                                    border: 'transparent',
+                                    marginTop: '5px'
+                                }}
+                                id={'club'}
+                                formData={this.state.formData.club} />
+                        </div>
+                    </div>
+                    <div className={classes.Privacy_Policy}>
+                        By registering for DubZone, you agree to receive periodic communications about news and offers from Dublin GAA, which you can unsubscribe from at any time, and have read and understood our <span>Privacy Policy.</span>
+                    </div>
+                    <button className={classes.SignUp}>Sign Me Up</button>
                 </div>
             </div>
         );

@@ -1,9 +1,100 @@
 .Form_Container {
    width: 50%;
-   margin: 25px 75px 50px 0;
+   margin: 25px 75px 100px 0;
 }
 
 .Form {
     margin: 60px 0 0 75px;
     background: #083512;
+    border-radius: 2px;
+    padding: 30px 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    color: white;
+    font-weight: 500;
+    border: 1px solid rgba(254,210,6,0.3);
+    position:relative;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.Form:before, .Form:after
+{
+    content:"";
+    position:absolute;
+    z-index:-1;
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    box-shadow:0 0 20px rgba(0,0,0,0.8);
+    top:10px;
+    bottom:10px;
+    left:0;
+    right:0;
+    -moz-border-radius:100px / 10px;
+    border-radius:100px / 10px;
+}
+.Form:after
+{
+    right:10px;
+    left:auto;
+    -webkit-transform:skew(8deg) rotate(3deg);
+       -moz-transform:skew(8deg) rotate(3deg);
+        -ms-transform:skew(8deg) rotate(3deg);
+         -o-transform:skew(8deg) rotate(3deg);
+            transform:skew(8deg) rotate(3deg);
+}
+
+.Form_Name {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.Form_Name div {
+    flex-grow: 1
+}
+
+.Form_Info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.Form_Info div {
+    flex-grow: 1;
+}
+
+.Club {
+    margin-top: 20px;
+}
+
+.Privacy_Policy {
+    font-size: 0.65em;
+    margin-bottom: 20px;
+}
+
+.Privacy_Policy span {
+    color: #FED206;
+}
+
+.Privacy_Policy span:hover {
+    cursor: pointer;
+}
+
+.SignUp {
+    width: fit-content;
+    font-size: 1.5em;
+    background-color: #259C41;
+    color: white;
+    border: transparent;
+    border-radius: 4px;
+    padding: 7.5px 10%;
 }

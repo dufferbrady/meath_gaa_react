@@ -1,18 +1,25 @@
 import React from 'react';
+import classes from './FormField.module.css';
 
-const FormField = ({ formData, id }) => {
+const FormField = ({ label, add, formData, id }) => {
 
     let formTemplate = null;
     switch (formData.element) {
         case ('input'):
             formTemplate = (
-                <div>
+                <div className={classes.FormField}>
                     {formData.showLabel ?
-                        <div>
+                        <div
+                            style={{
+                                ...label
+                            }}>
                             {formData.config.label}
                         </div>
                         : null}
                     <input
+                        style={{
+                            ...add
+                        }}
                         value={formData.value}
                         {...formData.config} />
                 </div>
@@ -22,17 +29,23 @@ const FormField = ({ formData, id }) => {
             formTemplate = (
                 <div>
                     {formData.showLabel ?
-                        <div>
+                        <div
+                            style={{
+                                ...label
+                            }}>
                             {formData.config.label}
                         </div>
                         : null}
-                    <select>
+                    <select
+                        style={{
+                            ...add
+                        }}>
                         value={formData.value}
                         <option value="">Please Select a Club</option>
                         {
                             formData.config.options.map(club => (
                                 <option key={club.key} value={club.value}>
-                                    { club.value }
+                                    {club.value}
                                 </option>
                             ))
                         }

@@ -37,7 +37,8 @@ const FanZoneNFO = () => {
                             icon="check"
                             style={{
                                 marginRight: '10px',
-                                fontSize: '20px'
+                                fontSize: '20px',
+                                color: '#FED206'
                             }}
                         /><span>A regular FanZone newsletter with exclusive news, interviews and videos</span>
                     </div>
@@ -46,7 +47,8 @@ const FanZoneNFO = () => {
                             icon="check"
                             style={{
                                 marginRight: '10px',
-                                fontSize: '20px'
+                                fontSize: '20px',
+                                color: '#FED206'
                             }}
                         /><span>Behind-the-scenes insights like never before</span>
                     </div>
@@ -55,7 +57,8 @@ const FanZoneNFO = () => {
                             icon="check"
                             style={{
                                 marginRight: '10px',
-                                fontSize: '20px'
+                                fontSize: '20px',
+                                color: '#FED206'
                             }}
                         /><span>Behind-the-scenes insights like never before</span>
                     </div>
