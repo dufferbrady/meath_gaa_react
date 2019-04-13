@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 
 import classes from './FanZoneForm.module.css'
 import FormField from '../../Components/UI/FormField/FormField'
-import {firebaseFanzone} from '../../Firebase'
+import { firebaseFanzone } from '../../Firebase'
+import Spinner from '../../Components/UI/Spinner/Spinner'
 
 class FanZoneForm extends Component {
 
     state = {
         formError: false,
         formSuccess: '',
+        formIsLoading: false,
         formData: {
             firstName: {
                 element: 'input',
@@ -69,6 +71,7 @@ class FanZoneForm extends Component {
                     name: 'select_club',
                     type: 'select',
                     options: [
+                        { key: 'Please Select a Club', value: '' },
                         { key: 'No Meath Club Affiliation', value: 'No Meath Club Affiliation' },
                         { key: 'Ballinabrackey', value: 'Ballinabrackey' },
                         { key: 'Ballinlough', value: 'Ballinlough' },
@@ -146,73 +149,117 @@ class FanZoneForm extends Component {
     validationHandler = input => {
         let error = [true, ''];
 
-        if(input.validation.email) {
+        if (input.validation.email) {
             let valid = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(input.value);
             let message = `${!valid ? 'Sorry, please give a valid email' : ''}`;
-            error = !valid ? [valid,message]: error;
+            error = !valid ? [valid, message] : error;
         }
 
-        if(input.validation.required) {
+        if (input.validation.required) {
             let valid = input.value.trim() !== '';
             let message = `${!valid ? 'Sorry, please fill in all required fields' : ''}`;
-            error = !valid ? [valid,message]: error;
+            error = !valid ? [valid, message] : error;
         }
 
         return error
     }
 
     inputChangeHandler = input => {
-        const newFormData = {...this.state.formData};
-        const newFormElement = {...newFormData[input.id]};
+        this.setState({
+            formError: false,
+            formSuccess: ''
+        })
+        const newFormData = { ...this.state.formData };
+        const newFormElement = { ...newFormData[input.id] };
         // console.log(this.state.formData[input.id])
         // console.log(newFormElement)
         // console.log(input.e.target.value)
-        
+
         newFormElement.value = input.e.target.value;
 
         let validation = this.validationHandler(newFormElement);
         newFormElement.valid = validation[0];
         newFormElement.validationMessage = validation[1];
+        console.log(validation[0], validation[1]);
 
         newFormData[input.id] = newFormElement;
-        console.log(newFormData)
+        // console.log(newFormData)
         this.setState({
             formData: newFormData,
-            formError: false
         })
-        // console.log(this.state.formData[input.id].value)
+        console.log(this.state.formData[input.id])
     }
 
     submitFormHandler = event => {
         event.preventDefault();
-
+        this.setState({ formIsLoading: true })
         let submittedData = {};
         let formIsValid = true;
-        for(let key in this.state.formData) {
+        for (let key in this.state.formData) {
             submittedData[key] = this.state.formData[key].value;
             formIsValid = this.state.formData[key].valid && formIsValid;
         }
 
-        if(formIsValid) {
+        if (formIsValid) {
             console.log(submittedData, submittedData.email)
             firebaseFanzone.orderByChild('email').equalTo(submittedData.email).once('value')
                 .then(snapshot => {
-                    if(snapshot.val() === null) {
+                    if (snapshot.val() === null) {
                         firebaseFanzone.push(submittedData);
+                        this.resetFormHandler(true)
+                    } else {
+                        this.resetFormHandler(false)
                     }
                 })
             // console.log(firebaseFanzone.orderByChild('email').equalTo(submittedData.email).once('value').then(snapshot => snapshot.val()))
         } else {
-            this.setState({formError: true})
+            this.setState({ formError: true })
         }
+        console.log(this.state.formSuccess)
+        // if(this.state.formSuccess !==  "") {
+        //     console.log(this.state.formSuccess)
+        //     // this.setState({
+        //     //     formIsLoading: false
+        //     // })
+        // }
+        // this.formLoadingHandler();
+    }
+
+    formLoadingHandler = (data, type) => {
+        setTimeout(() => {
+            this.setState({
+                formData: data,
+                formError: false,
+                formSuccess: type ? "Congratulations, you are now part of our news letter." : "Sorry, it looks like that e-mail has already been registered.",
+                formIsLoading: false
+            })
+        }, 500)
+    }
+
+    resetFormHandler = type => {
+        let newFormData = { ...this.state.formData }
+        for (let key in newFormData) {
+            // newFormData[key].value = ''
+            // newFormData[key].valid = false
+            // newFormData[key].validationMessage = ''
+            if (newFormData[key].element !== 'select') {
+                newFormData[key].value = '';
+                newFormData[key].valid = false;
+                newFormData[key].validationMessage = '';
+            }
+            console.log(newFormData.club)
+        }
+
+        this.formLoadingHandler(newFormData, type);
     }
 
     render() {
         return (
             <div className={classes.Form_Container}>
-                <form onSubmit={ (event)=> this.submitFormHandler(event)} className={classes.Form}>
+                <form onSubmit={(event) => this.submitFormHandler(event)} className={classes.Form} autocomplete="off">
                     <div className={classes.Form_Name}>
                         <div>
+                            {/* {!this.state.formData.firstName.valid ? <div className={classes.Error}>* Please fill in all required fields</div> : null} */}
                             <FormField
                                 add={{
                                     width: '95%',
@@ -223,10 +270,11 @@ class FanZoneForm extends Component {
                                     boxSizing: 'border-box'
                                 }}
                                 id={'firstName'}
-                                formData={this.state.formData.firstName} 
+                                formData={this.state.formData.firstName}
                                 change={input => this.inputChangeHandler(input)} />
                         </div>
                         <div>
+                            {/* {!this.state.formData.lastName.valid ? <div className={classes.Error}>* Please fill in all required fields</div> : null} */}
                             <FormField
                                 label={{
                                     marginLeft: '5%'
@@ -241,12 +289,13 @@ class FanZoneForm extends Component {
                                     boxSizing: 'border-box'
                                 }}
                                 id={'lastName'}
-                                formData={this.state.formData.lastName} 
-                                change={input => this.inputChangeHandler(input)}/>
+                                formData={this.state.formData.lastName}
+                                change={input => this.inputChangeHandler(input)} />
                         </div>
                     </div>
                     <div className={classes.Form_Info}>
                         <div>
+                            {/* {!this.state.formData.email.valid ? <div className={classes.Error}>* Please fill in all required fields</div> : null} */}
                             <FormField
                                 add={{
                                     width: '100%',
@@ -257,10 +306,11 @@ class FanZoneForm extends Component {
                                     boxSizing: 'border-box'
                                 }}
                                 id={'email'}
-                                formData={this.state.formData.email} 
-                                change={input => this.inputChangeHandler(input)}/>
+                                formData={this.state.formData.email}
+                                change={input => this.inputChangeHandler(input)} />
                         </div>
-                        <div className={ classes.Club }>
+                        <div className={classes.Club}>
+                            {/* {!this.state.formData.club.valid ? <div className={classes.Error}>* Please fill in all required fields</div> : null} */}
                             <FormField
                                 add={{
                                     width: '100%',
@@ -270,19 +320,24 @@ class FanZoneForm extends Component {
                                     marginTop: '5px'
                                 }}
                                 id={'club'}
-                                formData={this.state.formData.club} 
-                                change={e => this.inputChangeHandler(e)}/>
+                                formData={this.state.formData.club}
+                                change={e => this.inputChangeHandler(e)} />
                         </div>
                     </div>
-                    {this.state.formError ? <div>Sorry, something went wrong</div> : null}
                     <div className={classes.Privacy_Policy}>
                         By registering for DubZone, you agree to receive periodic communications about news and offers from Dublin GAA, which you can unsubscribe from at any time, and have read and understood our <span>Privacy Policy.</span>
                     </div>
-                    <button onSubmit={ (event)=> this.submitFormHandler(event)} className={classes.SignUp}>Sign Me Up</button>
+                    {this.state.formError ? <div className={classes.Error}>* Please fill in all required fields</div> : null}
+                    {this.state.formIsLoading ? <Spinner height="75px" width="75px" /> :
+                        <div>
+                            <div className={classes.formSuccess}>{this.state.formSuccess}</div>
+                            <button onSubmit={(event) => this.submitFormHandler(event)} className={classes.SignUp}>Sign Me Up</button>
+                        </div>
+                    }
                 </form>
             </div>
-        );
-    }
-}
-
+                );
+            }
+        }
+        
 export default FanZoneForm;

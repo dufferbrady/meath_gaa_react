@@ -17,6 +17,7 @@ const FormField = ({ label, add, formData, id, change }) => {
                         </div>
                         : null}
                     <input
+                        autocomplete="false"
                         onChange={e => change({ e, id })}
                         style={{
                             ...add
@@ -43,11 +44,12 @@ const FormField = ({ label, add, formData, id, change }) => {
                             ...add
                         }}>
                         value={formData.value}
-                        <option>Please Select a Club</option>
+                        {/* <option
+                        key="placeholder" value="">Please Select a Club</option> */}
                         {
                             formData.config.options.map(club => (
                                 <option key={club.key} value={club.value}>
-                                    {club.value}
+                                    {club.key}
                                 </option>
                             ))
                         }
