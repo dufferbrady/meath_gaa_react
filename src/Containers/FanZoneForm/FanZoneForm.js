@@ -4,6 +4,7 @@ import classes from './FanZoneForm.module.css'
 import FormField from '../../Components/UI/FormField/FormField'
 import { firebaseFanzone } from '../../Firebase'
 import Spinner from '../../Components/UI/Spinner/Spinner'
+import {validationHandler} from '../../Components/misc/helpers'
 
 class FanZoneForm extends Component {
 
@@ -146,24 +147,6 @@ class FanZoneForm extends Component {
         }
     }
 
-    validationHandler = input => {
-        let error = [true, ''];
-
-        if (input.validation.email) {
-            let valid = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(input.value);
-            let message = `${!valid ? 'Sorry, please give a valid email' : ''}`;
-            error = !valid ? [valid, message] : error;
-        }
-
-        if (input.validation.required) {
-            let valid = input.value.trim() !== '';
-            let message = `${!valid ? 'Sorry, please fill in all required fields' : ''}`;
-            error = !valid ? [valid, message] : error;
-        }
-
-        return error
-    }
-
     inputChangeHandler = input => {
         this.setState({
             formError: false,
@@ -177,7 +160,7 @@ class FanZoneForm extends Component {
 
         newFormElement.value = input.e.target.value;
 
-        let validation = this.validationHandler(newFormElement);
+        let validation = validationHandler(newFormElement);
         newFormElement.valid = validation[0];
         newFormElement.validationMessage = validation[1];
         console.log(validation[0], validation[1]);
@@ -211,18 +194,10 @@ class FanZoneForm extends Component {
                         this.resetFormHandler(false)
                     }
                 })
-            // console.log(firebaseFanzone.orderByChild('email').equalTo(submittedData.email).once('value').then(snapshot => snapshot.val()))
         } else {
             this.setState({ formError: true })
         }
         console.log(this.state.formSuccess)
-        // if(this.state.formSuccess !==  "") {
-        //     console.log(this.state.formSuccess)
-        //     // this.setState({
-        //     //     formIsLoading: false
-        //     // })
-        // }
-        // this.formLoadingHandler();
     }
 
     formLoadingHandler = (data, type) => {
@@ -310,7 +285,6 @@ class FanZoneForm extends Component {
                                 change={input => this.inputChangeHandler(input)} />
                         </div>
                         <div className={classes.Club}>
-                            {/* {!this.state.formData.club.valid ? <div className={classes.Error}>* Please fill in all required fields</div> : null} */}
                             <FormField
                                 add={{
                                     width: '100%',
@@ -325,7 +299,7 @@ class FanZoneForm extends Component {
                         </div>
                     </div>
                     <div className={classes.Privacy_Policy}>
-                        By registering for DubZone, you agree to receive periodic communications about news and offers from Dublin GAA, which you can unsubscribe from at any time, and have read and understood our <span>Privacy Policy.</span>
+                        By registering for FanZone, you agree to receive periodic communications about news and offers from Dublin GAA, which you can unsubscribe from at any time, and have read and understood our <span>Privacy Policy.</span>
                     </div>
                     {this.state.formError ? <div className={classes.Error}>* Please fill in all required fields</div> : null}
                     {this.state.formIsLoading ? <Spinner height="75px" width="75px" /> :
@@ -340,4 +314,6 @@ class FanZoneForm extends Component {
             }
         }
         
+export {validationHandler}
+
 export default FanZoneForm;

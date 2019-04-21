@@ -1,0 +1,25 @@
+.SignIn {
+    background: url('/images/SignInCover.png') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+.SignIn_Cover {
+    margin: 0;
+    padding: 0;
+    background: #083512;
+    opacity: 0.75;
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    position: absolute;
+    z-index: 1;
+}
+
+.SignIn_Body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}

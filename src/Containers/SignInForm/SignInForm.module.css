@@ -1,0 +1,35 @@
+.FormBody {
+    width: 30%;
+    position: relative;
+    z-index: 10;
+}
+
+::-webkit-input-placeholder {
+    text-align: center;
+    font-size: 1.25em;
+}
+
+.Form_Header {
+    text-align: center;
+    font-size: 3em;
+    margin-bottom: 15px;
+    color: #E9C00B;
+    letter-spacing: 2px;
+}
+
+.Button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px 0;
+    background-color: #259C41;
+    border: transparent;
+    border-radius: 4px;
+    color: white;
+    font-size: 1.5em;
+}
+
+.Error {
+    margin-top: 10px;
+    color: red;
+    text-align: center;
+}

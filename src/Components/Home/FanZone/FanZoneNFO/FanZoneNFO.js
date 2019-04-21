@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import classes from './FanZoneNFO.module.css'
-import Tag from '../../UI/Tag/Tag'
+import Tag from '../../../UI/Tag/Tag'
 
 const FanZoneNFO = () => {
     return (

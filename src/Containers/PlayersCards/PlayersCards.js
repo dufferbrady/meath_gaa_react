@@ -4,7 +4,7 @@ import Fade from 'react-reveal/Fade';
 
 import classes from './PlayersCards.module.css'
 import Spinner from '../../Components/UI/Spinner/Spinner'
-import PlayerCard from '../../Components/PlayerCard/PlayerCard'
+import PlayerCard from '../../Components/Home/PlayerCard/PlayerCard'
 
 class PlayersCards extends Component {
 

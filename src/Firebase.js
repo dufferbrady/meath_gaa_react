@@ -1,6 +1,8 @@
 import firebase from 'firebase/app'
 import 'firebase/app'
 import 'firebase/database'
+import 'firebase/auth'
+import 'firebase/storage'
 
 const config = {
     apiKey: "AIzaSyARad3SaGe-ghTfKkfbIe_gmWHVsVwpdsI",
@@ -31,6 +33,7 @@ const firebaseFanzone = firebaseDB.ref('fanzone')
 // console.log(firebaseFans);
 
 export { 
+    firebase,
     firebaseMatches,
     firebasePlayers,
     firebaseFanzone

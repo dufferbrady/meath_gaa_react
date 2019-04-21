@@ -17,7 +17,7 @@ const FormField = ({ label, add, formData, id, change }) => {
                         </div>
                         : null}
                     <input
-                        autocomplete="false"
+                        autoComplete="false"
                         onChange={e => change({ e, id })}
                         style={{
                             ...add

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Matchblocks from '../../Containers/Matchblocks/Matchblocks'
-import Tag from '../UI/Tag/Tag'
+import Matchblocks from '../../../Containers/Matchblocks/Matchblocks'
+import Tag from '../../UI/Tag/Tag'
 import classes from './Matches.module.css'
 
 const Matches = () => {

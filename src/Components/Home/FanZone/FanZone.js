@@ -2,7 +2,7 @@ import React from 'react';
 
 import classes from './FanZone.module.css';
 import FanZoneNFO from './FanZoneNFO/FanZoneNFO'
-import FanZoneForm from '../../Containers/FanZoneForm/FanZoneForm'
+import FanZoneForm from '../../../Containers/FanZoneForm/FanZoneForm'
 
 const FanZone = () => {
     return (

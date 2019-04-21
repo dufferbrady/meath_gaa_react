@@ -4,7 +4,7 @@ import Flip from 'react-reveal/Flip'
 import classes from './Matchblocks.module.css'
 import { firebaseMatches } from '../../Firebase'
 import Spinner from '../../Components/UI/Spinner/Spinner'
-import Matchblock from '../../Components/Matchblock/Matchblock'
+import Matchblock from '../../Components/Home/Matchblock/Matchblock'
 
 class MatchBlocks extends Component {
 
