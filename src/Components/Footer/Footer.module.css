@@ -7,6 +7,9 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    z-index: 100;
+    border-top: 3px solid #083512;
 }
 
 .Footer_Logo {

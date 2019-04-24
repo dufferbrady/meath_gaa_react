@@ -7,23 +7,26 @@ import PlayersCards from '../../../Containers/PlayersCards/PlayersCards';
 const Meetplayers = () => {
     return (
         <div className={classes.Meetplayers_bck}>
-            <Tag
-                background='#259C41' 
-                color='white'
-                size='50px'
-            >
-                Football Squad
+            <span className={classes.Players_Cover}></span>
+            <div className={classes.Players_Body}>
+                <Tag
+                    background='#259C41'
+                    color='white'
+                    size='50px'
+                >
+                    Football Squad
             </Tag>
-            <PlayersCards />
-            <Tag
-                background='#259C41' 
-                color='white'
-                size='20px'
-                link={true}
-                linkTo="/The-Team"
-            >
-                View all Players
+                <PlayersCards />
+                <Tag
+                    background='#259C41'
+                    color='white'
+                    size='20px'
+                    link={true}
+                    linkTo="/The-Team"
+                >
+                    View all Players
             </Tag>
+            </div>
         </div>
     );
 };

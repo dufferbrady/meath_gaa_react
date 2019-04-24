@@ -72,6 +72,11 @@
     flex-grow: 1;
 }
 
+::-webkit-input-placeholder {
+    text-align: left !important;
+    font-size: 1.25em;
+}
+
 .Club {
     margin-top: 20px;
 }

@@ -9,7 +9,8 @@ import FollowUs from './FollowUs/FollowUs'
 
 const Home = () => {
     return (
-        <div className={ classes.Home }>
+        <div className={classes.Home}>
+            <span className={classes.Cover}></span>
             <Featured />
             <Matches />
             <Meetplayers />

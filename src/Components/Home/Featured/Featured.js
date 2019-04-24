@@ -4,9 +4,10 @@ import classes from './Featured.module.css'
 import Stripes from '../../../Containers/Stripes/Stripes'
 import Text from './Text/Text'
 
-const Featured= () => {
+const Featured = () => {
     return (
         <div className={classes.Featured_Wrapper}>
+            <span className={classes.Featured_Cover}></span>
             <Text />
             <Stripes />
         </div>

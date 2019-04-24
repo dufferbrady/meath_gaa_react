@@ -299,7 +299,7 @@ class FanZoneForm extends Component {
                         </div>
                     </div>
                     <div className={classes.Privacy_Policy}>
-                        By registering for FanZone, you agree to receive periodic communications about news and offers from Dublin GAA, which you can unsubscribe from at any time, and have read and understood our <span>Privacy Policy.</span>
+                        By registering for FanZone, you agree to receive periodic communications about news and offers from Meath GAA, which you can unsubscribe from at any time, and have read and understood our <span>Privacy Policy.</span>
                     </div>
                     {this.state.formError ? <div className={classes.Error}>* Please fill in all required fields</div> : null}
                     {this.state.formIsLoading ? <Spinner height="75px" width="75px" /> :

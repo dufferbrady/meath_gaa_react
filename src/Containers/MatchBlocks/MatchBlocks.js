@@ -38,7 +38,7 @@ class MatchBlocks extends Component {
         console.log(this.state.matches)
         let matches = null;
         if (this.state.loading) {
-            matches = <Spinner />
+            matches = <Spinner height="150px" width="150px"/>
         } else {
             matches = this.state.matches.map((match, index) => (
                 <div

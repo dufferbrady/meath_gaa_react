@@ -1,6 +1,5 @@
 .Matches_bck {
     background: #259C41;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    border-top: 3px solid #083512;
     padding: 50px;
 }

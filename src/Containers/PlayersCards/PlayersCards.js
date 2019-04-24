@@ -38,7 +38,7 @@ class PlayersCards extends Component {
     render() {
         let players = null;
         if (this.state.loading) {
-            players = <Spinner />
+            players = <Spinner height="150px" width="150px"/>
         } else {
             players = this.state.players.map((player, index) => (
                 <Fade right delay={this.state.delay[index]}>
