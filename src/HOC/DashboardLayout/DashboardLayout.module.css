@@ -1,0 +1,16 @@
+.Layout_Container {
+    display: flex;
+    margin-top: 90px;
+}
+
+.Layout_Container .Container_Left {
+    min-height: 100vh; 
+    background: #259C41;
+    border-right: 3px solid #083512;
+}
+
+.Layout_Container .Container_Right {
+    flex-grow: 1;
+    background: #083512;
+    text-align: center;
+}

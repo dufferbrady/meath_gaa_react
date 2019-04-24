@@ -6,6 +6,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import Layout from '../src/HOC/Layout/Layout'
 import Home from './Components/Home/Home'
 import SignIn from './Components/SignIn/SignIn'
+import Dashboard from './Components/Admin/Dashboard/Dashboard'
 import './Routes.module.css'
 
 library.add(faCheck)
@@ -16,7 +17,8 @@ class App extends Component {
       <Layout>
         <Switch>
           <Route exact component={Home} path='/' />
-          <Route exact component={SignIn} path='/Sign-in' />
+          <Route exact component={SignIn} path='/sign-in' />
+          <Route exact component={Dashboard} path='/dashboard' />
         </Switch>
       </Layout>
     );
