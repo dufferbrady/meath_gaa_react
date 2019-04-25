@@ -2,7 +2,7 @@ import React from 'react';
 
 import classes from './Meetplayers.module.css'
 import Tag from '../../UI/Tag/Tag'
-import PlayersCards from '../../../Containers/PlayersCards/PlayersCards';
+import PlayersCards from '../../../Containers/Home/PlayersCards/PlayersCards';
 
 const Meetplayers = () => {
     return (

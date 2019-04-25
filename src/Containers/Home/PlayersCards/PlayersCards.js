@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { firebasePlayers } from '../../Firebase'
 import Fade from 'react-reveal/Fade';
 
+import { firebasePlayers } from '../../../Firebase'
 import classes from './PlayersCards.module.css'
-import Spinner from '../../Components/UI/Spinner/Spinner'
-import PlayerCard from '../../Components/Home/PlayerCard/PlayerCard'
+import Spinner from '../../../Components/UI/Spinner/Spinner'
+import PlayerCard from '../../../Components/Home/PlayerCard/PlayerCard'
+import { getFirebaseDataHandler } from '../../../Components/misc/helpers'
 
 class PlayersCards extends Component {
 
@@ -16,23 +17,12 @@ class PlayersCards extends Component {
 
     componentDidMount() {
         firebasePlayers.once('value').then(snapshot => {
-            this.getPlayersHandler(snapshot.val());
+            const players = getFirebaseDataHandler(snapshot.val());
+            this.setState({
+                players,
+                loading: false
+            })
         });
-    }
-
-    getPlayersHandler = players => {
-        let data = [];
-        Object.keys(players)
-            .map(playerKey => (
-                data.push({
-                    ...players[playerKey],
-                    id: playerKey
-                })
-            ));
-        this.setState({
-            players: data,
-            loading: false
-        })
     }
 
     render() {

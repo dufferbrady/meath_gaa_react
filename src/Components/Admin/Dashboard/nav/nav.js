@@ -10,7 +10,7 @@ const nav = () => {
     const links = [
         {
             title: 'Matches',
-            linkTo: '/matches'
+            linkTo: '/admin_matches'
         },
         {
             title: 'Add Match',
@@ -18,7 +18,7 @@ const nav = () => {
         },
         {
             title: 'Players',
-            linkTo: '/players'
+            linkTo: '/admin_players'
         },
         {
             title: 'Add Player',

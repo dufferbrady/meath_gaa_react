@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import Flip from 'react-reveal/Flip'
 
 import classes from './Matchblocks.module.css'
-import { firebaseMatches } from '../../Firebase'
-import Spinner from '../../Components/UI/Spinner/Spinner'
-import Matchblock from '../../Components/Home/Matchblock/Matchblock'
+import { firebaseMatches } from '../../../Firebase'
+import Spinner from '../../../Components/UI/Spinner/Spinner'
+import Matchblock from '../../../Components/Home/Matchblock/Matchblock'
+import { getFirebaseDataHandler } from '../../../Components/misc/helpers'
 
 class MatchBlocks extends Component {
 
@@ -15,30 +16,19 @@ class MatchBlocks extends Component {
 
     componentDidMount() {
         firebaseMatches.once('value').then(snapshot => {
-            this.getMatchesHandler(snapshot.val());
+            const matches = getFirebaseDataHandler(snapshot.val());
+            this.setState({
+                matches,
+                loading: false
+            })
         });
-    }
-
-    getMatchesHandler = matches => {
-        let data = [];
-        Object.keys(matches)
-            .map(matchKey => (
-                data.push({
-                    ...matches[matchKey],
-                    id: matchKey
-                })
-            ));
-        this.setState({
-            matches: data,
-            loading: false
-        })
     }
 
     render() {
         console.log(this.state.matches)
         let matches = null;
         if (this.state.loading) {
-            matches = <Spinner height="150px" width="150px"/>
+            matches = <Spinner height="150px" width="150px" />
         } else {
             matches = this.state.matches.map((match, index) => (
                 <div

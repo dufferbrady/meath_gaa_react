@@ -16,6 +16,24 @@ const validationHandler = input => {
     return error
 }
 
+const getFirebaseDataHandler = DBdata => {
+    let data = [];
+    console.log(DBdata)
+    Object.keys(DBdata)
+        .map(item => (
+            data.push({
+                ...DBdata[item],
+                id: item
+            })
+        ));
+    return data
+    // this.setState({
+    //     matches: data,
+    //     loading: false
+    // })
+}
+
 export {
-    validationHandler
+    validationHandler,
+    getFirebaseDataHandler
 }
