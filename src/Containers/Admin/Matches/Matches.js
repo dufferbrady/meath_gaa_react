@@ -41,19 +41,31 @@ class Matches extends Component {
             )
         } else {
             matches = (
-                <Paper style={{ margin: '50px' }}>
+                <Paper style={{ 
+                    margin: '25px'
+                }}>
                     <Table>
                         <TableHead>
-                            <TableRow style={{ padding: '5px 0' }}>
-                                <TableCell>Date</TableCell>
-                                <TableCell>Match</TableCell>
-                                <TableCell>Result</TableCell>
-                                <TableCell>Competition</TableCell>
+                            <TableRow style={{ 
+                                padding: '5px 0',
+                                fontFamily: 'Poppins'
+                                 
+                            }}>
+                                <TableCell style={{fontSize: '1.5rem'}}>Date</TableCell>
+                                <TableCell style={{fontSize: '1.5rem'}}>Match</TableCell>
+                                <TableCell style={{fontSize: '1.5rem'}}>Result</TableCell>
+                                <TableCell style={{fontSize: '1.5rem'}}>Competition</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {this.state.matches.map(match => (
-                                <TableRow style={{ height: '60px' }} key={match.id}>
+                                <TableRow 
+                                style={{ 
+                                height: '60px',
+                                fontFamily: 'Poppins',
+                                letterSpacing: '0.5px' 
+                                }} 
+                                key={match.id}>
                                     <TableCell>{match.date}</TableCell>
                                     <TableCell>{match.home} <strong>-</strong> {match.away}</TableCell>
                                     <TableCell>{match.resultHome} <strong>-</strong> {match.resultAway}</TableCell>
