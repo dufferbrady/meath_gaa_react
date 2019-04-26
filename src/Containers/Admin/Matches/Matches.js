@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button'
 
 import Spinner from '../../../Components/UI/Spinner/Spinner'
 import DashboardLayout from '../../../HOC/DashboardLayout/DashboardLayout';
@@ -56,6 +57,7 @@ class Matches extends Component {
                                 <TableCell style={{ fontSize: '1.5rem' }}>Match</TableCell>
                                 <TableCell style={{ fontSize: '1.5rem' }}>Result</TableCell>
                                 <TableCell style={{ fontSize: '1.5rem' }}>Competition</TableCell>
+                                <TableCell></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -68,13 +70,29 @@ class Matches extends Component {
                                     }}
                                     key={match.id}>
                                     <TableCell>{match.date}</TableCell>
-                                    <TableCell>
-                                        <Link to={`/admin-matches/edit_match/${match.id}`}>
-                                            {match.home} <strong>-</strong> {match.away}
-                                        </Link>
-                                    </TableCell>
+                                    <TableCell>{match.home} <strong>-</strong> {match.away}</TableCell>
                                     <TableCell>{match.resultHome} <strong>-</strong> {match.resultAway}</TableCell>
                                     <TableCell>{match.fixture}</TableCell>
+                                    <TableCell>
+                                        <Link to={`/admin_matches/edit_match/${match.id}`}>
+                                            <Button
+                                                variant="contained"
+                                                style={{
+                                                    background: '#FFD306',
+                                                    color: 'white',
+                                                    marginRight: '10px'
+                                                }}>
+                                                Edit</Button>
+                                        </Link>
+                                        <Button
+                                            variant="contained"
+                                            style={{
+                                                background: '#DF4554',
+                                                color: 'white',
+                                                marginLeft: '10px'
+                                            }}>
+                                            Delete</Button>
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

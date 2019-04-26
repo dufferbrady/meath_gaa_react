@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button'
 
 import Spinner from '../../../Components/UI/Spinner/Spinner'
 import DashboardLayout from '../../../HOC/DashboardLayout/DashboardLayout';
@@ -72,6 +73,26 @@ class Players extends Component {
                                     <TableCell>{player.club}</TableCell>
                                     <TableCell>
                                         <img src={`${player.image}`} alt={`${player.name}`}/>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Link to={`/admin_players/edit_player/${player.id}`}>
+                                            <Button
+                                                variant="contained"
+                                                style={{
+                                                    background: '#FFD306',
+                                                    color: 'white',
+                                                    marginRight: '10px'
+                                                }}>
+                                                Edit</Button>
+                                        </Link>
+                                        <Button
+                                            variant="contained"
+                                            style={{
+                                                background: '#DF4554',
+                                                color: 'white',
+                                                marginLeft: '10px'
+                                            }}>
+                                            Delete</Button>
                                     </TableCell>
                                 </TableRow>
                             ))}

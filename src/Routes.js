@@ -6,9 +6,12 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import Layout from '../src/HOC/Layout/Layout'
 import Home from './Components/Home/Home'
 import SignIn from './Components/SignIn/SignIn'
+
 import Dashboard from './Components/Admin/Dashboard/Dashboard'
 import AdminMatches from './Containers/Admin/Matches/Matches'
+import EditMatches from './Containers/Admin/EditMatches/EditMatches'
 import AdminPlayers from './Containers/Admin/Players/Players'
+import EditPlayers from './Containers/Admin/EditPlayers/EditPlayers'
 
 import PrivateRoute from './Components/AuthRoutes/PrivateRoutes/PrivateRoutes'
 import PublicRoute from './Components/AuthRoutes/PublicRoutes/PublicRoutes'
@@ -20,8 +23,12 @@ const Routes = props => {
   return (
     <Layout>
       <Switch>
-        <PrivateRoute {...props} exact component={AdminPlayers} path='/admin_players' />
+        <PrivateRoute {...props} exact component={EditMatches} path='/admin_matches/edit_match/' />
+        <PrivateRoute {...props} exact component={EditMatches} path='/admin_matches/edit_match/:id' />
         <PrivateRoute {...props} exact component={AdminMatches} path='/admin_matches' />
+        <PrivateRoute {...props} exact component={EditPlayers} path='/admin_players/edit_player/' />
+        <PrivateRoute {...props} exact component={EditPlayers} path='/admin_players/edit_player/:id' />
+        <PrivateRoute {...props} exact component={AdminPlayers} path='/admin_players' />
         <PrivateRoute {...props} exact component={Dashboard} path='/dashboard' />
         <PublicRoute  {...props} restricted={false} exact component={Home} path='/' />
         <PublicRoute  {...props} restricted={true} exact component={SignIn} path='/sign-in' />
