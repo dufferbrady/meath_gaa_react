@@ -10,21 +10,21 @@ import Paper from '@material-ui/core/Paper';
 
 import Spinner from '../../../Components/UI/Spinner/Spinner'
 import DashboardLayout from '../../../HOC/DashboardLayout/DashboardLayout';
-import { firebaseMatches } from '../../../Firebase';
+import { firebasePlayers } from '../../../Firebase';
 import { getFirebaseDataHandler } from '../../../Components/misc/helpers'
 
-class Matches extends Component {
+class Players extends Component {
 
     state = {
-        matches: null,
+        players: null,
         loading: true
     }
 
     componentDidMount() {
-        firebaseMatches.once('value').then(snapshot => {
-            const matches = getFirebaseDataHandler(snapshot.val());
+        firebasePlayers.once('value').then(snapshot => {
+            const players = getFirebaseDataHandler(snapshot.val());
             this.setState({
-                matches,
+                players,
                 loading: false
             })
             console.log(this.state.matches)
@@ -32,16 +32,16 @@ class Matches extends Component {
     }
 
     render() {
-        let matches = null;
+        let players = null;
         if (this.state.loading) {
-            matches = (
+            players = (
                 <Spinner
                     height="150px"
                     width="150px"
                     marginTop="100px" />
             )
         } else {
-            matches = (
+            players = (
                 <Paper style={{
                     margin: '25px'
                 }}>
@@ -52,29 +52,27 @@ class Matches extends Component {
                                 fontFamily: 'Poppins'
 
                             }}>
-                                <TableCell style={{ fontSize: '1.5rem' }}>Date</TableCell>
-                                <TableCell style={{ fontSize: '1.5rem' }}>Match</TableCell>
-                                <TableCell style={{ fontSize: '1.5rem' }}>Result</TableCell>
-                                <TableCell style={{ fontSize: '1.5rem' }}>Competition</TableCell>
+                                <TableCell style={{ fontSize: '1.5rem' }}>Name</TableCell>
+                                <TableCell style={{ fontSize: '1.5rem' }}>Position</TableCell>
+                                <TableCell style={{ fontSize: '1.5rem' }}>Club</TableCell>
+                                <TableCell style={{ fontSize: '1.5rem' }}>Image</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.state.matches.map(match => (
+                            {this.state.players.map(player => (
                                 <TableRow
                                     style={{
                                         height: '60px',
                                         fontFamily: 'Poppins',
                                         letterSpacing: '0.5px'
                                     }}
-                                    key={match.id}>
-                                    <TableCell>{match.date}</TableCell>
+                                    key={player.id}>
+                                    <TableCell>{player.name}</TableCell>
+                                    <TableCell>{player.position}</TableCell>
+                                    <TableCell>{player.club}</TableCell>
                                     <TableCell>
-                                        <Link to={`/admin-matches/edit_match/${match.id}`}>
-                                            {match.home} <strong>-</strong> {match.away}
-                                        </Link>
+                                        <img src={`${player.image}`} alt={`${player.name}`}/>
                                     </TableCell>
-                                    <TableCell>{match.resultHome} <strong>-</strong> {match.resultAway}</TableCell>
-                                    <TableCell>{match.fixture}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -85,10 +83,10 @@ class Matches extends Component {
 
         return (
             <DashboardLayout>
-                {matches}
+                {players}
             </DashboardLayout>
         );
     }
 }
 
-export default Matches;
+export default Players;
