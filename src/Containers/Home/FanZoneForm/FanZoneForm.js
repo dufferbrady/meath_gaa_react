@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
 import classes from './FanZoneForm.module.css'
-import FormField from '../../Components/UI/FormField/FormField'
-import { firebaseFanzone } from '../../Firebase'
-import Spinner from '../../Components/UI/Spinner/Spinner'
-import {validationHandler} from '../../Components/misc/helpers'
+import FormField from '../../../Components/UI/FormField/FormField'
+import { firebaseFanzone } from '../../../Firebase'
+import Spinner from '../../../Components/UI/Spinner/Spinner'
+import {validationHandler} from '../../../Components/misc/helpers'
 
 class FanZoneForm extends Component {
 

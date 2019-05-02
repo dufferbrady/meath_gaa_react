@@ -1,7 +1,7 @@
 import React from 'react';
 
 import classes from './Featured.module.css'
-import Stripes from '../../../Containers/Stripes/Stripes'
+import Stripes from '../../../Containers/Home/Stripes/Stripes'
 import Text from './Text/Text'
 
 const Featured = () => {

@@ -44,8 +44,6 @@ const FormField = ({ label, add, formData, id, change }) => {
                             ...add
                         }}>
                         value={formData.value}
-                        {/* <option
-                        key="placeholder" value="">Please Select a Club</option> */}
                         {
                             formData.config.options.map(club => (
                                 <option key={club.key} value={club.value}>

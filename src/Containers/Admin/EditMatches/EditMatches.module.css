@@ -1,0 +1,48 @@
+.Container {
+    width: 50%;
+    margin: 40px 75px;
+}
+
+
+.Home_container 
+.Home_wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.Away_container
+.Away_wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.Home_container
+.Home_wrapper
+.Left {
+    flex-grow: 1;
+}
+
+.Away_container
+.Away_wrapper
+.Left {
+    flex-grow: 1;
+}
+
+.Left {
+    margin-right: 20px;
+}
+
+.Home_label,
+.Away_label {
+    background: #259C41;
+    color: #FED206;
+    font-size: 1.5rem;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+    width: fit-content;
+}
+
+.select_team_layout input[name=home_result_input],
+.select_team_layout input[name=away_result_input] {
+    width: 20px
+}
