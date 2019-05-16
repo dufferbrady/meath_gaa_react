@@ -20,21 +20,22 @@ firebase.initializeApp(config);
 const firebaseDB = firebase.database();
 const firebaseMatches = firebaseDB.ref('matches');
 const firebasePlayers = firebaseDB.ref('players');
-const firebaseFanzone = firebaseDB.ref('fanzone')
+const firebaseFanzone = firebaseDB.ref('fanzone');
+const firebaseCountyTeams = firebaseDB.ref('countyTeams');
 
-// const newFanRef = firebaseFanzone.push();
-// newFanRef.set({
-//     firstName: "Andrew",
-//     lastName: "Brady",
-//     email: '92andrew.brady@gmail.com',
-//     club: 'Donaghmore/Ashbourne'
+// const newCountyTeamRef = firebaseCountyTeams.push();
+// newCountyTeamRef.set({
+//     name: 'Wicklow',
+//     nickName: "The Garden County"
 // });
 
 // console.log(firebaseFans);
 
 export { 
     firebase,
+    firebaseDB,
     firebaseMatches,
     firebasePlayers,
-    firebaseFanzone
+    firebaseFanzone,
+    firebaseCountyTeams
 };

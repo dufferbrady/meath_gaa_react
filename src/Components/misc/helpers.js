@@ -33,7 +33,19 @@ const getFirebaseDataHandler = DBdata => {
     // })
 }
 
+const dateConvertor = date => {
+    const dateString = date.replace(/-/gi,"");
+    const year = dateString.substring(0, 4);
+    const month = dateString.substring(4, 6);
+    const day = dateString.substring(6, 8);
+
+    const newDate = Date(year, month - 1, day);
+    const dateFinal = `${newDate.substring(0,3)},${newDate.substring(3,10)}`
+    return dateFinal
+}
+
 export {
     validationHandler,
-    getFirebaseDataHandler
+    getFirebaseDataHandler,
+    dateConvertor   
 }

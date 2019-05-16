@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import DashboardLayout from '../../../HOC/DashboardLayout/DashboardLayout'
 import Formfield from '../../../Components/UI/FormField/FormField'
+import { validationHandler, dateConvertor } from '../../../Components/misc/helpers'
+import { firebaseDB, firebaseMatches, firebaseCountyTeams } from '../../../Firebase';
 
 import classes from './EditMatches.module.css'
 
@@ -53,9 +55,7 @@ class EditMatches extends Component {
                     name: 'home_input',
                     type: 'select',
                     label: 'Home Team',
-                    options: [
-                        { key: 'Please Select a Club', value: '' }
-                    ]
+                    options: []
                 },
                 showLabel: false,
                 validation: {
@@ -88,9 +88,7 @@ class EditMatches extends Component {
                     name: 'away_input',
                     type: 'select',
                     label: 'Away Team',
-                    options: [
-                        { key: 'Please Select a Club', value: '' }
-                    ]
+                    options: []
                 },
                 showLabel: false,
                 validation: {
@@ -151,8 +149,93 @@ class EditMatches extends Component {
         }
     }
 
+    componentDidMount() {
+        const matchId = this.props.match.params.id;
+        if (!matchId) {
+            //ADD MATCH
+            this.getCountyTeamsHandler(false, 'Add Match', null)
+        } else {
+            //EDIT MATCH
+            firebaseDB.ref(`matches/${matchId}`).once('value').then(snapshot => {
+                const match = snapshot.val();
+                this.getCountyTeamsHandler(match, 'Edit Match', matchId)
+            });
+        }
+    }
+
+    getCountyTeamsHandler = (match, type, matchId) => {
+        firebaseCountyTeams.once('value').then(snapshot => {
+            const teams = snapshot.val();
+            let teamOptions = [];
+            snapshot.forEach(childsnapshot => {
+                teamOptions.push({
+                    key: childsnapshot.val().name,
+                    value: childsnapshot.val().name
+                })
+            });
+            this.updateFormElementsHandler(match, teams, teamOptions, type, matchId)
+        });
+    }
+
+    updateFormElementsHandler = (match, teams, teamOptions, type, matchId) => {
+        const newFormData = { ...this.state.formData };
+        for (let key in newFormData) {
+            newFormData[key].value = match[key]
+            newFormData[key].valid = true
+            if (key === 'home' || key === 'away') {
+                newFormData[key].config.options = teamOptions
+            }
+        }
+        this.setState({
+            matchId,
+            formType: type,
+            formData: newFormData,
+            teams
+        })
+    }
+
+    inputChangeHandler = input => {
+        this.setState({
+            formError: false,
+            formSuccess: ''
+        })
+        const newFormData = { ...this.state.formData };
+        const newFormElement = { ...newFormData[input.id] };
+
+        newFormElement.value = input.e.target.value;
+
+        let validation = validationHandler(newFormElement);
+        newFormElement.valid = validation[0];
+        newFormElement.validationMessage = validation[1];
+        console.log(validation[0], validation[1]);
+
+        newFormData[input.id] = newFormElement;
+        this.setState({
+            formData: newFormData,
+        })
+        console.log(this.state.formData[input.id])
+    }
+
     submitFormHandler(event) {
         event.preventDefault()
+        if (this.state.formType === 'Add Match') {
+
+            const formData = this.state.formData
+            const dateShow = dateConvertor(formData.date.value)
+
+            const newMatch = firebaseMatches.push();
+            newMatch.set({
+                dateShow,
+                date: formData.date.value,
+                fixture: formData.fixture.value,
+                home: formData.home.value,
+                resultHome: formData.resultHome.value,
+                away: formData.away.value,
+                resultAway: formData.resultAway.value,
+                referee: formData.referee.value,
+                stadium: formData.stadium.value
+            });
+        }
     }
 
     render() {
@@ -160,6 +243,7 @@ class EditMatches extends Component {
             <DashboardLayout>
                 <div className={classes.Container}>
                     <form onSubmit={event => this.submitFormHandler(event)}>
+                        <h2 className={classes.Header}>{this.state.formType}</h2>
                         <Formfield
                             add={{
                                 width: '50%',
@@ -177,7 +261,8 @@ class EditMatches extends Component {
                                 marginBottom: '20px'
                             }}
                             id={'date'}
-                            formData={this.state.formData.date} />
+                            formData={this.state.formData.date}
+                            change={input => this.inputChangeHandler(input)} />
                         <Formfield
                             add={{
                                 width: '100%',
@@ -194,8 +279,9 @@ class EditMatches extends Component {
                                 padding: '5px 10px',
                                 marginBottom: '20px'
                             }}
-                            id={'event'}
-                            formData={this.state.formData.fixture} />
+                            id={'fixture'}
+                            formData={this.state.formData.fixture}
+                            change={input => this.inputChangeHandler(input)} />
                         <div className={classes.Home_container}>
                             <div className={classes.Home_label}>Home Team</div>
                             <div className={classes.Home_wrapper}>
@@ -210,7 +296,8 @@ class EditMatches extends Component {
                                             boxSizing: 'border-box'
                                         }}
                                         id={'home'}
-                                        formData={this.state.formData.home} />
+                                        formData={this.state.formData.home}
+                                        change={input => this.inputChangeHandler(input)} />
                                 </div>
                                 <div>
                                     <Formfield
@@ -223,7 +310,8 @@ class EditMatches extends Component {
                                             boxSizing: 'border-box'
                                         }}
                                         id={'resultHome'}
-                                        formData={this.state.formData.resultHome} />
+                                        formData={this.state.formData.resultHome}
+                                        change={input => this.inputChangeHandler(input)} />
                                 </div>
                             </div>
                         </div>
@@ -241,7 +329,8 @@ class EditMatches extends Component {
                                             boxSizing: 'border-box'
                                         }}
                                         id={'away'}
-                                        formData={this.state.formData.away} />
+                                        formData={this.state.formData.away}
+                                        change={input => this.inputChangeHandler(input)} />
                                 </div>
                                 <div>
                                     <Formfield
@@ -254,7 +343,8 @@ class EditMatches extends Component {
                                             boxSizing: 'border-box'
                                         }}
                                         id={'resultAway'}
-                                        formData={this.state.formData.resultAway} />
+                                        formData={this.state.formData.resultAway}
+                                        change={input => this.inputChangeHandler(input)} />
                                 </div>
                             </div>
                         </div>
@@ -275,7 +365,8 @@ class EditMatches extends Component {
                                 marginBottom: '20px'
                             }}
                             id={'referee'}
-                            formData={this.state.formData.referee} />
+                            formData={this.state.formData.referee}
+                            change={input => this.inputChangeHandler(input)} />
                         <Formfield
                             add={{
                                 width: '50%',
@@ -293,7 +384,19 @@ class EditMatches extends Component {
                                 marginBottom: '20px'
                             }}
                             id={'stadium'}
-                            formData={this.state.formData.stadium} />
+                            formData={this.state.formData.stadium}
+                            change={input => this.inputChangeHandler(input)} />
+                        <div style={{
+                            marginTop: '20px',
+                            display: 'flex',
+                            justifyContent: 'flex-start'
+                        }}>
+                            <button
+                                onClick={event => this.submitFormHandler(event)}
+                                className={classes.Button}>
+                                {this.state.formType}
+                            </button>
+                        </div>
                     </form>
                 </div>
             </DashboardLayout>

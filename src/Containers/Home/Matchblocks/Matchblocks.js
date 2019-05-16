@@ -36,7 +36,7 @@ class MatchBlocks extends Component {
                 >
                     <Flip top delay={200}>
                         <Matchblock
-                            Date={match.date}
+                            Date={match.dateShow}
                             fixture={match.fixture}
                             homeTeam={match.home}
                             homeResult={match.resultHome}
