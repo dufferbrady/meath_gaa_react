@@ -60,6 +60,16 @@
     width: 20px
 }
 
+
+.Error_Wrapper {
+    height: 20px;
+    /* margin: 20px; */
+}
+
+.Error {
+    color: red;
+}
+
 .Button {
     background: #259C41;
     color: #FED206;

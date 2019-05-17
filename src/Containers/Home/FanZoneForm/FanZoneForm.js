@@ -224,7 +224,6 @@ class FanZoneForm extends Component {
             }
             console.log(newFormData.club)
         }
-
         this.formLoadingHandler(newFormData, type);
     }
 

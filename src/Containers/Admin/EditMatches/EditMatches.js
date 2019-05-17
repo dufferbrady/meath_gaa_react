@@ -4,6 +4,7 @@ import DashboardLayout from '../../../HOC/DashboardLayout/DashboardLayout'
 import Formfield from '../../../Components/UI/FormField/FormField'
 import { validationHandler, dateConvertor } from '../../../Components/misc/helpers'
 import { firebaseDB, firebaseMatches, firebaseCountyTeams } from '../../../Firebase';
+import Spinner from '../../../Components/UI/Spinner/Spinner'
 
 import classes from './EditMatches.module.css'
 
@@ -22,7 +23,8 @@ class EditMatches extends Component {
                 config: {
                     name: 'date_input',
                     type: 'date',
-                    label: 'Match Date'
+                    label: 'Match Date',
+                    required: true
                 },
                 showLabel: true,
                 validation: {
@@ -38,7 +40,8 @@ class EditMatches extends Component {
                 config: {
                     name: 'fixture_input',
                     type: 'text',
-                    label: 'Match Competition'
+                    label: 'Match Competition',
+                    required: true
                 },
                 showLabel: true,
                 validation: {
@@ -146,7 +149,8 @@ class EditMatches extends Component {
                 valid: false,
                 validationMessage: ''
             },
-        }
+        },
+        formIsLoading: false
     }
 
     componentDidMount() {
@@ -180,8 +184,10 @@ class EditMatches extends Component {
     updateFormElementsHandler = (match, teams, teamOptions, type, matchId) => {
         const newFormData = { ...this.state.formData };
         for (let key in newFormData) {
-            newFormData[key].value = match[key]
-            newFormData[key].valid = true
+            if (match) {
+                newFormData[key].value = match[key]
+                newFormData[key].valid = true
+            }
             if (key === 'home' || key === 'away') {
                 newFormData[key].config.options = teamOptions
             }
@@ -217,25 +223,51 @@ class EditMatches extends Component {
     }
 
     submitFormHandler(event) {
-        event.preventDefault()
-        if (this.state.formType === 'Add Match') {
+        event.preventDefault();
+        this.setState({ formIsLoading: true })
+        setTimeout(() => {
+            const newFormData = { ...this.state.formData };
+            const dateShow = dateConvertor(newFormData.date.value);
 
-            const formData = this.state.formData
-            const dateShow = dateConvertor(formData.date.value)
-
-            const newMatch = firebaseMatches.push();
-            newMatch.set({
-                dateShow,
-                date: formData.date.value,
-                fixture: formData.fixture.value,
-                home: formData.home.value,
-                resultHome: formData.resultHome.value,
-                away: formData.away.value,
-                resultAway: formData.resultAway.value,
-                referee: formData.referee.value,
-                stadium: formData.stadium.value
-            });
-        }
+            let dataToSubmit = {};
+            let formIsValid = true;
+            dataToSubmit.dateShow = dateShow;
+            for (let key in newFormData) {
+                dataToSubmit[key] = newFormData[key].value
+                formIsValid = newFormData[key].valid && formIsValid
+            }
+            if (formIsValid) {
+                if (this.state.formType === 'Edit Match') {
+                    firebaseDB.ref(`/matches/${this.state.matchId}`)
+                        .update(dataToSubmit).then(() => {
+                            this.setState({
+                                formSuccess: "Match Updated Successfully",
+                                formIsLoading: false
+                            });
+                            setTimeout(() => this.props.history.push('/admin_matches'), 1000);
+                        }).catch(e => {
+                            this.setState({
+                                formError: true,
+                                formIsLoading: false
+                            })
+                        })
+                } else {
+                    firebaseMatches.push(dataToSubmit).then(() => {
+                        this.props.history.push('/admin_matches')
+                    }).catch(e => {
+                        this.setState({
+                            formError: true,
+                            formIsLoading: false
+                        })
+                    })
+                }
+            } else {
+                this.setState({
+                    formError: true,
+                    formIsLoading: false
+                })
+            }
+        }, 2000)
     }
 
     render() {
@@ -389,13 +421,28 @@ class EditMatches extends Component {
                         <div style={{
                             marginTop: '20px',
                             display: 'flex',
+                            flexDirection: 'column',
                             justifyContent: 'flex-start'
                         }}>
-                            <button
-                                onClick={event => this.submitFormHandler(event)}
-                                className={classes.Button}>
-                                {this.state.formType}
-                            </button>
+                            <div>
+                                {this.state.formSuccess}
+                            </div>
+                            {!this.state.formIsLoading ?
+                                <button
+                                    onClick={event => this.submitFormHandler(event)}
+                                    className={classes.Button}>
+                                    {this.state.formType}
+                                </button>
+                                : <Spinner height={'75px'} width={'75px'} marginLeft={'15%'} />
+                            }
+                            <div className={classes.Error_Wrapper}>
+                                {this.state.formError ?
+                                    <span className={classes.Error}>
+                                        Whoops Looks like something went wrong :(
+                                    </span>
+                                    : ''
+                                }
+                            </div>
                         </div>
                     </form>
                 </div>
