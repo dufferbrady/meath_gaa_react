@@ -1,0 +1,89 @@
+.Container {
+    width: 50%;
+    margin: 40px 75px;
+}
+
+.Header {
+    width: 50%;
+    padding: 15px 10px;
+    /* border-radius: 4px; */
+    border: transparent;
+    margin-bottom: 10vh;
+    box-sizing: border-box;
+    background: #FED206;
+    color: #259C41;
+    letter-spacing: 2px;
+    font-weight: 400;
+    font-size: 2rem;
+}
+
+.Home_container 
+.Home_wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.Away_container
+.Away_wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.Home_container
+.Home_wrapper
+.Left {
+    flex-grow: 1;
+}
+
+.Away_container
+.Away_wrapper
+.Left {
+    flex-grow: 1;
+}
+
+.Left {
+    margin-right: 20px;
+}
+
+.Home_label,
+.Away_label {
+    background: #259C41;
+    color: #FED206;
+    font-size: 1.5rem;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+    width: fit-content;
+}
+
+.select_team_layout input[name=home_result_input],
+.select_team_layout input[name=away_result_input] {
+    width: 20px
+}
+
+
+.Error_Wrapper {
+    height: 20px;
+    /* margin: 20px; */
+}
+
+.Error {
+    color: red;
+}
+
+.Button {
+    background: #259C41;
+    color: #FED206;
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    width: fit-content;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.Button:hover {
+    transform: scale(1.05);
+    background: #FED206;
+    color: #259C41;
+}
