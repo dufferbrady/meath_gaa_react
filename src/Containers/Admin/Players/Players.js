@@ -13,6 +13,7 @@ import Spinner from '../../../Components/UI/Spinner/Spinner'
 import DashboardLayout from '../../../HOC/DashboardLayout/DashboardLayout';
 import { firebasePlayers } from '../../../Firebase';
 import { getFirebaseDataHandler } from '../../../Components/misc/helpers'
+import classes from './Players.module.css'
 
 class Players extends Component {
 
@@ -28,7 +29,6 @@ class Players extends Component {
                 players,
                 loading: false
             })
-            console.log(this.state.matches)
         })
     }
 
@@ -72,7 +72,10 @@ class Players extends Component {
                                     <TableCell>{player.position}</TableCell>
                                     <TableCell>{player.club}</TableCell>
                                     <TableCell>
-                                        <img src={`${player.image}`} alt={`${player.name}`}/>
+                                        <img 
+                                        className={classes.PlayerImage}
+                                        src={`${player.imageURL}`} 
+                                        alt={`${player.name}`}/>
                                     </TableCell>
                                     <TableCell>
                                         <Link to={`/admin_players/edit_player/${player.id}`}>

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 
 import Fileupload from 'react-firebase-file-uploader'
-import { firebase } from '../../../Firebase'
+import { firebase, firebasePlayers } from '../../../Firebase'
 import Spinner from '../../../Components/UI/Spinner/Spinner'
+import classes from './Fileuploader.module.css'
+import Button from '@material-ui/core/Button'
 
 class Fileuploader extends Component {
 
@@ -33,9 +35,13 @@ class Fileuploader extends Component {
             isUploading: false
         });
 
-        firebase.storage().ref(this.props.dir)
-            .child(filename).getDownloadURL()
+        firebase
+            .storage()
+            .ref(this.props.dir)
+            .child(filename)
+            .getDownloadURL()
             .then(url => {
+                console.log(url)
                 this.setState({ fileURL: url })
             })
 
@@ -68,9 +74,12 @@ class Fileuploader extends Component {
         return (
             <div>
                 {!this.state.fileURL ?
-                    <div>
-                        <div>{this.props.tag}</div>
+                    <div className={classes.Image_Upload}>
+                        <div className={classes.Tag}>
+                            {this.props.tag}
+                        </div>
                         <Fileupload
+                            style={{ color: '#FED206' }}
                             accept="image/*"
                             name="image"
                             randomizeFilename
@@ -91,16 +100,28 @@ class Fileuploader extends Component {
                     : null
                 }
                 {this.state.fileURL ?
-                    <div>
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'flex-start',
+                        marginBottom: '30px'
+                    }}>
                         <img
                             style={{
-                                width: '100%'
+                                width: '75%'
                             }}
                             src={this.state.fileURL}
                             alt={this.state.name}
                         />
                         <div onClick={() => this.uploadAgain()}>
-                            Remove
+                            <Button
+                                variant="contained"
+                                style={{
+                                    background: '#DF4554',
+                                    color: 'white',
+                                    marginLeft: '10px'
+                                }}>
+                                Remove</Button>
                         </div>
                     </div>
 

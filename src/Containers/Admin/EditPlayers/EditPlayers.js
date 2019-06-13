@@ -52,13 +52,13 @@ class EditMatches extends Component {
                 validationMessage: ''
             },
             club: {
-                element: 'input',
+                element: 'select',
                 value: '',
                 config: {
                     name: 'club_input',
-                    type: 'text',
+                    type: 'select',
                     label: 'Club',
-                    required: true
+                    options: [{ key: 'St. Peter’s, Dunboyne', value: 'St. Peter’s, Dunboyne' }]
                 },
                 showLabel: true,
                 validation: {
@@ -78,8 +78,8 @@ class EditMatches extends Component {
         }
     }
 
-    updateFields = (player, playerId, formType, defaultImg) => {
-        const newFormdata = { ...this.state.formdata }
+    updateFieldsHandler = (player, playerId, formType, defaultImg) => {
+        const newFormdata = { ...this.state.formData }
 
         for (let key in newFormdata) {
             newFormdata[key].value = player[key];
@@ -90,7 +90,7 @@ class EditMatches extends Component {
             playerId,
             defaultImg,
             formType,
-            formdata: newFormdata
+            formData: newFormdata
         })
     }
 
@@ -108,16 +108,16 @@ class EditMatches extends Component {
                 .once('value')
                 .then(snapshot => {
                     const playerData = snapshot.val();
-
+                    console.log(playerData)
                     firebase
                         .storage()
                         .ref('players')
                         .child(playerData.image)
                         .getDownloadURL()
                         .then(url => {
-                            this.updateFields(playerData, playerId, 'Edit player', url)
+                            this.updateFieldsHandler(playerData, playerId, 'Edit player', url)
                         }).catch(e => {
-                            this.updateFields({
+                            this.updateFieldsHandler({
                                 ...playerData,
                                 image: ''
                             }, playerId, 'Edit player', '')
@@ -128,30 +128,31 @@ class EditMatches extends Component {
     }
 
 
-    updateForm(element, content = '') {
-        const newFormdata = { ...this.state.formData }
-        const newElement = { ...newFormdata[element.id] }
+    updateFormHandler(input, content = '') {
+        const newFormData = { ...this.state.formData };
+        const newFormElement = { ...newFormData[input.id] };
 
         if (content === '') {
-            newElement.value = element.event.target.value;
+            newFormElement.value = input.e.target.value;
         } else {
-            newElement.value = content
+            newFormElement.value = content
         }
+        
 
-        let validData = validationHandler(newElement)
-        newElement.valid = validData[0];
-        newElement.validationMessage = validData[1]
+        let validation = validationHandler(newFormElement);
+        newFormElement.valid = validation[0];
+        newFormElement.validationMessage = validation[1];
+        console.log(validation[0], validation[1]);
 
-        newFormdata[element.id] = newElement;
-
+        newFormData[input.id] = newFormElement;
         this.setState({
-            formError: false,
-            formdata: newFormdata
+            formData: newFormData,
         })
+        
     }
 
 
-    successForm = (message) => {
+    successFormHandler = (message) => {
         this.setState({
             formSuccess: message
         });
@@ -163,15 +164,15 @@ class EditMatches extends Component {
 
     }
 
-    submitForm(event) {
+    submitFormHandler(event) {
         event.preventDefault();
 
         let dataToSubmit = {};
         let formIsValid = true;
 
-        for (let key in this.state.formdata) {
-            dataToSubmit[key] = this.state.formdata[key].value;
-            formIsValid = this.state.formdata[key].valid && formIsValid;
+        for (let key in this.state.formData) {
+            dataToSubmit[key] = this.state.formData[key].value;
+            formIsValid = this.state.formData[key].valid && formIsValid;
         }
 
         if (formIsValid) {
@@ -189,6 +190,7 @@ class EditMatches extends Component {
                 firebasePlayers
                     .push(dataToSubmit)
                     .then(() => {
+                        console.log(dataToSubmit)
                         this.props.history.push('/admin_players')
                     })
                     .catch(e => {
@@ -205,19 +207,19 @@ class EditMatches extends Component {
         }
     }
 
-    resetImage = () => {
-        const newFormdata = { ...this.state.formdata }
+    resetImageHandler = () => {
+        const newFormdata = { ...this.state.formData }
         newFormdata['image'].value = '';
         newFormdata['image'].valid = false;
 
         this.setState({
             defaultImg: '',
-            formdata: newFormdata
+            formData: newFormdata
         })
     }
 
-    storeFilename = (filename) => {
-        this.updateForm({ id: 'image' }, filename)
+    storeFilenameHandler = (filename) => {
+        this.updateFormHandler({ id: 'image' }, filename)
     }
 
     render() {
@@ -232,12 +234,12 @@ class EditMatches extends Component {
                             tag={"Player image"}
                             defaultImg={this.state.defaultImg}
                             defaultImgName={this.state.formData.image.value}
-                            resetImage={() => this.resetImage()}
-                            filename={(filename) => this.storeFilename(filename)} />
+                            resetImage={() => this.resetImageHandler()}
+                            filename={(filename) => this.storeFilenameHandler(filename)} />
 
                         <Formfield
                             add={{
-                                width: '50%',
+                                width: '75%',
                                 padding: '15px 10px',
                                 borderRadius: '4px',
                                 border: 'transparent',
@@ -253,11 +255,11 @@ class EditMatches extends Component {
                             }}
                             id={'name'}
                             formData={this.state.formData.name}
-                            change={input => this.inputChangeHandler(input)} />
+                            change={input => this.updateFormHandler(input)} />
 
                         <Formfield
                             add={{
-                                width: '50%',
+                                width: '75%',
                                 padding: '15px 10px',
                                 borderRadius: '4px',
                                 border: 'transparent',
@@ -273,38 +275,48 @@ class EditMatches extends Component {
                             }}
                             id={'position'}
                             formData={this.state.formData.position}
-                            change={input => this.inputChangeHandler(input)} />
+                            change={input => this.updateFormHandler(input)} />
 
                         <Formfield
                             add={{
-                                width: '50%',
+                                width: '75%',
                                 padding: '15px 10px',
                                 borderRadius: '4px',
                                 border: 'transparent',
                                 marginBottom: '5vh',
-                                boxSizing: 'border-box'
+                                boxSizing: 'border-box',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'flex-start'
                             }}
                             label={{
                                 background: '#259C41',
                                 color: '#FED206',
                                 fontSize: '1.5rem',
                                 padding: '5px 10px',
-                                marginBottom: '20px'
+                                marginBottom: '20px',
+                                width: 'fit-content'
                             }}
                             id={'club'}
                             formData={this.state.formData.club}
-                            change={input => this.inputChangeHandler(input)} />
+                            change={input => this.updateFormHandler(input)} />
                         <div>
                             {this.state.formSuccess}
                         </div>
-                        {!this.state.formIsLoading ?
-                            <button
-                                onClick={event => this.submitFormHandler(event)}
-                                className={classes.Button}>
-                                {this.state.formType}
-                            </button>
-                            : <Spinner height={'75px'} width={'75px'} marginLeft={'15%'} />
-                        }
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'flex-start'
+                        }}>
+                            {!this.state.formIsLoading ?
+                                <button
+                                    onClick={event => this.submitFormHandler(event)}
+                                    className={classes.Button}>
+                                    {this.state.formType}
+                                </button>
+                                : <Spinner height={'75px'} width={'75px'} marginLeft={'15%'} />
+                            }
+                        </div>
 
                         <div className={classes.Error_Wrapper}>
                             {this.state.formError ?
