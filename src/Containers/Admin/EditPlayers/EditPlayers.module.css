@@ -61,13 +61,17 @@
 }
 
 
-.Error_Wrapper {
+.Message_Wrapper {
     height: 20px;
     /* margin: 20px; */
 }
 
 .Error {
     color: red;
+}
+
+.Success {
+    color: #FED206;
 }
 
 .Button {

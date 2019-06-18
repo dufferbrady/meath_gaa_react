@@ -160,15 +160,20 @@ class EditMatches extends Component {
             this.getCountyTeamsHandler(false, 'Add Match', null)
         } else {
             //EDIT MATCH
-            firebaseDB.ref(`matches/${matchId}`).once('value').then(snapshot => {
-                const match = snapshot.val();
-                this.getCountyTeamsHandler(match, 'Edit Match', matchId)
-            });
+            firebaseDB
+                .ref(`matches/${matchId}`)
+                .once('value')
+                .then(snapshot => {
+                    const match = snapshot.val();
+                    this.getCountyTeamsHandler(match, 'Edit Match', matchId)
+                });
         }
     }
 
     getCountyTeamsHandler = (match, type, matchId) => {
-        firebaseCountyTeams.once('value').then(snapshot => {
+        firebaseCountyTeams
+            .once('value')
+            .then(snapshot => {
             const teams = snapshot.val();
             let teamOptions = [];
             snapshot.forEach(childsnapshot => {
@@ -238,28 +243,34 @@ class EditMatches extends Component {
             }
             if (formIsValid) {
                 if (this.state.formType === 'Edit Match') {
-                    firebaseDB.ref(`/matches/${this.state.matchId}`)
-                        .update(dataToSubmit).then(() => {
+                    firebaseDB
+                        .ref(`/matches/${this.state.matchId}`)
+                        .update(dataToSubmit)
+                        .then(() => {
                             this.setState({
                                 formSuccess: "Match Updated Successfully",
                                 formIsLoading: false
                             });
                             setTimeout(() => this.props.history.push('/admin_matches'), 1000);
-                        }).catch(e => {
+                        })
+                        .catch(e => {
                             this.setState({
                                 formError: true,
                                 formIsLoading: false
                             })
                         })
                 } else {
-                    firebaseMatches.push(dataToSubmit).then(() => {
-                        this.props.history.push('/admin_matches')
-                    }).catch(e => {
-                        this.setState({
-                            formError: true,
-                            formIsLoading: false
+                    firebaseMatches
+                        .push(dataToSubmit)
+                        .then(() => {
+                            this.props.history.push('/admin_matches')
                         })
-                    })
+                        .catch(e => {
+                            this.setState({
+                                formError: true,
+                                formIsLoading: false
+                            })
+                        })
                 }
             } else {
                 this.setState({

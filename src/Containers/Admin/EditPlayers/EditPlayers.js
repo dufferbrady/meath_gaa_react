@@ -6,7 +6,7 @@ import Formfield from '../../../Components/UI/FormField/FormField'
 import Spinner from '../../../Components/UI/Spinner/Spinner'
 import Fileuploader from '../Fileuploader/Fileuploader'
 import { validationHandler } from '../../../Components/misc/helpers'
-import { firebase, firebaseDB, firebasePlayers } from '../../../Firebase'
+import { firebase, firebaseDB, firebasePlayers, firebaseClubTeams } from '../../../Firebase'
 
 class EditMatches extends Component {
 
@@ -16,7 +16,6 @@ class EditMatches extends Component {
         formError: false,
         formSuccess: '',
         defaultImg: '',
-        clubs: [],
         formIsLoading: false,
         formData: {
             name: {
@@ -58,7 +57,7 @@ class EditMatches extends Component {
                     name: 'club_input',
                     type: 'select',
                     label: 'Club',
-                    options: [{ key: 'St. Peter’s, Dunboyne', value: 'St. Peter’s, Dunboyne' }]
+                    options: []
                 },
                 showLabel: true,
                 validation: {
@@ -74,57 +73,79 @@ class EditMatches extends Component {
                     required: true,
                 },
                 valid: false
+            },
+            imageURL: {
+                element: 'url',
+                value: '',
+                validation: {
+                    required: true,
+                },
+                valid: false
             }
         }
     }
-
-    updateFieldsHandler = (player, playerId, formType, defaultImg) => {
-        const newFormdata = { ...this.state.formData }
-
-        for (let key in newFormdata) {
-            newFormdata[key].value = player[key];
-            newFormdata[key].valid = true
-        }
-
-        this.setState({
-            playerId,
-            defaultImg,
-            formType,
-            formData: newFormdata
-        })
-    }
-
 
     componentDidMount() {
         const playerId = this.props.match.params.id;
 
         if (!playerId) {
-            this.setState({
-                formType: 'Add player'
-            })
+            this.getClubTeamsHandler(false, 'Add player', null)
         } else {
             firebaseDB
                 .ref(`players/${playerId}`)
                 .once('value')
                 .then(snapshot => {
-                    const playerData = snapshot.val();
-                    console.log(playerData)
+                    const player = snapshot.val();
                     firebase
                         .storage()
                         .ref('players')
-                        .child(playerData.image)
+                        .child(player.image)
                         .getDownloadURL()
                         .then(url => {
-                            this.updateFieldsHandler(playerData, playerId, 'Edit player', url)
-                        }).catch(e => {
-                            this.updateFieldsHandler({
-                                ...playerData,
-                                image: ''
-                            }, playerId, 'Edit player', '')
+                            this.getClubTeamsHandler(player, 'Edit Player', playerId, url)
                         })
                 })
         }
+    }
 
+    getClubTeamsHandler = (player, formType, playerId, url = '') => {
+        firebaseClubTeams
+            .once('value')
+            .then(snapshot => {
+                const teams = snapshot.val();
+                let teamOptions = [];
+                snapshot.forEach(childsnapshot => {
+                    teamOptions.push({
+                        key: childsnapshot.val().key,
+                        value: childsnapshot.val().value
+                    })
+                });
+                this.updateFieldsHandler(player, teams, teamOptions, formType, playerId, url)
+                console.log(teamOptions)
+            });
+    }
+
+    updateFieldsHandler = (player, teams, teamOptions, formType, playerId, defaultImg) => {
+        const newFormdata = { ...this.state.formData }
+
+        for (let key in newFormdata) {
+            if (player) {
+                newFormdata[key].value = player[key];
+                newFormdata[key].valid = true
+            }
+            if (key === 'club') {
+                newFormdata[key].config.options = teamOptions
+            }
+        }
+
+        console.log(newFormdata)
+        this.setState({
+            teams,
+            playerId,
+            defaultImg,
+            formType,
+            formData: newFormdata
+        })
     }
 
 
@@ -137,18 +158,17 @@ class EditMatches extends Component {
         } else {
             newFormElement.value = content
         }
-        
 
         let validation = validationHandler(newFormElement);
         newFormElement.valid = validation[0];
         newFormElement.validationMessage = validation[1];
-        console.log(validation[0], validation[1]);
 
         newFormData[input.id] = newFormElement;
+        console.log(this.state.formError)
         this.setState({
             formData: newFormData,
         })
-        
+
     }
 
 
@@ -165,6 +185,7 @@ class EditMatches extends Component {
     }
 
     submitFormHandler(event) {
+        console.log(this.state.formError)
         event.preventDefault();
 
         let dataToSubmit = {};
@@ -176,12 +197,16 @@ class EditMatches extends Component {
         }
 
         if (formIsValid) {
-            if (this.state.formType === 'Edit player') {
+            if (this.state.formType === 'Edit Player') {
                 firebaseDB
                     .ref(`players/${this.state.playerId}`)
                     .update(dataToSubmit)
                     .then(() => {
-                        this.successForm('Update correctly');
+                        this.setState({
+                            formSuccess: "Player Updated Successfully",
+                            // formIsLoading: false
+                        });
+                        setTimeout(() => this.props.history.push('/admin_players'), 2000);
                     })
                     .catch(e => {
                         this.setState({ formError: true })
@@ -194,9 +219,7 @@ class EditMatches extends Component {
                         this.props.history.push('/admin_players')
                     })
                     .catch(e => {
-                        this.setState({
-                            formError: true
-                        })
+                        this.setState({ formError: true })
                     })
             }
 
@@ -222,6 +245,10 @@ class EditMatches extends Component {
         this.updateFormHandler({ id: 'image' }, filename)
     }
 
+    storeFileURLHandler = url => {
+        this.updateFormHandler({ id: 'imageURL' }, url)
+    }
+
     render() {
         return (
             <DashboardLayout>
@@ -235,7 +262,8 @@ class EditMatches extends Component {
                             defaultImg={this.state.defaultImg}
                             defaultImgName={this.state.formData.image.value}
                             resetImage={() => this.resetImageHandler()}
-                            filename={(filename) => this.storeFilenameHandler(filename)} />
+                            filename={(filename) => this.storeFilenameHandler(filename)}
+                            fileURL={(url) => this.storeFileURLHandler(url)} />
 
                         <Formfield
                             add={{
@@ -300,9 +328,6 @@ class EditMatches extends Component {
                             id={'club'}
                             formData={this.state.formData.club}
                             change={input => this.updateFormHandler(input)} />
-                        <div>
-                            {this.state.formSuccess}
-                        </div>
                         <div style={{
                             display: 'flex',
                             flexDirection: 'row',
@@ -316,13 +341,17 @@ class EditMatches extends Component {
                                 </button>
                                 : <Spinner height={'75px'} width={'75px'} marginLeft={'15%'} />
                             }
+                        </div>;
+                        <div className={classes.Message_Wrapper}>
+                            <span className={classes.Success}>
+                                {this.state.formSuccess}
+                            </span>
                         </div>
-
-                        <div className={classes.Error_Wrapper}>
+                        <div className={classes.Message_Wrapper}>
                             {this.state.formError ?
                                 <span className={classes.Error}>
                                     Whoops Looks like something went wrong :(
-                                    </span>
+                                </span>
                                 : ''
                             }
                         </div>

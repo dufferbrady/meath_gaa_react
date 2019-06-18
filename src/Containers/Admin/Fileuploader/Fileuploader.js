@@ -27,14 +27,12 @@ class Fileuploader extends Component {
     }
 
     handleUploadSuccess = (filename) => {
-
-        console.log(filename)
-
         this.setState({
             name: filename,
             isUploading: false
         });
 
+        console.log(filename)
         firebase
             .storage()
             .ref(this.props.dir)
@@ -43,6 +41,7 @@ class Fileuploader extends Component {
             .then(url => {
                 console.log(url)
                 this.setState({ fileURL: url })
+                this.props.fileURL(url)
             })
 
         this.props.filename(filename)
