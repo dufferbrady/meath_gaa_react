@@ -11,15 +11,21 @@ import Button from '@material-ui/core/Button'
 
 import Spinner from '../../../Components/UI/Spinner/Spinner'
 import DashboardLayout from '../../../HOC/DashboardLayout/DashboardLayout';
-import { firebasePlayers } from '../../../Firebase';
+import { firebaseDB, firebasePlayers } from '../../../Firebase';
 import { getFirebaseDataHandler } from '../../../Components/misc/helpers'
+import Modal from '../../../Components/UI/Modal/Modal'
+import Aux from '../../../HOC/Auxillary/Auxillary'
 import classes from './Players.module.css'
 
 class Players extends Component {
 
     state = {
         players: null,
-        loading: true
+        deletePlayer: null,
+        deletePlayerSuccess: false,
+        loading: true,
+        modalLoading: false,
+        showBackdrop: false
     }
 
     componentDidMount() {
@@ -32,8 +38,36 @@ class Players extends Component {
         })
     }
 
+    toggleBackdropHandler = (value, playerId) => {
+        this.setState({
+            showBackdrop: value
+        })
+        this.state.players.map(player => {
+            if (player.id === playerId) {
+                this.setState({ deletePlayer: player })
+            }
+        })
+        console.log(this.state.deletePlayer)
+    }
+
+    deletePlayerHandler = player => {
+        firebaseDB
+            .ref(`players/${player.id}`)
+            .remove()
+            .then(() => {
+                this.setState({
+                    modalLoading: true,
+                    deletePlayerSuccess: true
+                })
+            })
+        setTimeout(() => this.setState({modalLoading: false}), 1000);
+        setTimeout(() => this.props.history.push('/admin_players'), 2000);
+    }
+
     render() {
         let players = null;
+        let modal = null;
+        let deletePlayerModal = null
         if (this.state.loading) {
             players = (
                 <Spinner
@@ -72,10 +106,10 @@ class Players extends Component {
                                     <TableCell>{player.position}</TableCell>
                                     <TableCell>{player.club}</TableCell>
                                     <TableCell>
-                                        <img 
-                                        className={classes.PlayerImage}
-                                        src={`${player.imageURL}`} 
-                                        alt={`${player.name}`}/>
+                                        <img
+                                            className={classes.PlayerImage}
+                                            src={`${player.imageURL}`}
+                                            alt={`${player.name}`} />
                                     </TableCell>
                                     <TableCell>
                                         <Link to={`/admin_players/edit_player/${player.id}`}>
@@ -89,6 +123,7 @@ class Players extends Component {
                                                 Edit</Button>
                                         </Link>
                                         <Button
+                                            onClick={() => this.toggleBackdropHandler(true, player.id)}
                                             variant="contained"
                                             style={{
                                                 background: '#DF4554',
@@ -104,11 +139,64 @@ class Players extends Component {
                 </Paper>
             )
         }
-
+        if (this.state.modalLoading) {
+            deletePlayerModal = (
+                <Spinner
+                    height="150px"
+                    width="150px"
+                    marginTop="100px" />
+            )
+        } else {
+            deletePlayerModal = <span>Successfully Deleted.</span>
+        }
+        if (!this.state.deletePlayer) {
+            modal = null
+        } else {
+            modal = (
+                <Modal
+                    show={this.state.showBackdrop}
+                    click={value => this.toggleBackdropHandler(false)}
+                    cancelModal={value => this.toggleBackdropHandler(false)}>
+                    <div className={classes.Modal_Text}>
+                        {
+                            !this.state.deletePlayerSuccess ?
+                                <div>
+                                    <span>Are you sure you want to delete {this.state.deletePlayer.name}?</span>
+                                    <div className={classes.Buttons}>
+                                        <Button
+                                            onClick={player => this.deletePlayerHandler(this.state.deletePlayer)}
+                                            variant="contained"
+                                            style={{
+                                                background: '#DF4554',
+                                                color: 'white',
+                                                marginRight: '10px'
+                                            }}>
+                                            Delete</Button>
+                                        <Button
+                                            onClick={value => this.toggleBackdropHandler(false)}
+                                            variant="contained"
+                                            style={{
+                                                background: '#259C41',
+                                                color: 'white',
+                                                marginLeft: '10px'
+                                            }}>
+                                            Cancel</Button>
+                                    </div>
+                                </div>
+                                :
+                                <span>Successfully Deleted.</span>
+                        }
+                    </div>
+                </Modal>
+            )
+        }
         return (
-            <DashboardLayout>
-                {players}
-            </DashboardLayout>
+            <Aux>
+                <DashboardLayout>
+                    {modal}
+                    {players}
+                </DashboardLayout>
+            </Aux>
         );
     }
 }
