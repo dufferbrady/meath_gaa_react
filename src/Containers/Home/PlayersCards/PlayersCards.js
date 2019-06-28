@@ -37,7 +37,7 @@ class PlayersCards extends Component {
                         >
                             <PlayerCard
                                 name={player.name}
-                                image={player.image}
+                                image={player.imageURL}
                                 club={player.club}
                                 position={player.position}
                             />

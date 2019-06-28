@@ -47,7 +47,6 @@ class Players extends Component {
                 this.setState({ deletePlayer: player })
             }
         })
-        console.log(this.state.deletePlayer)
     }
 
     deletePlayerHandler = player => {
@@ -67,7 +66,6 @@ class Players extends Component {
     render() {
         let players = null;
         let modal = null;
-        let deletePlayerModal = null
         if (this.state.loading) {
             players = (
                 <Spinner
@@ -139,16 +137,16 @@ class Players extends Component {
                 </Paper>
             )
         }
-        if (this.state.modalLoading) {
-            deletePlayerModal = (
-                <Spinner
-                    height="150px"
-                    width="150px"
-                    marginTop="100px" />
-            )
-        } else {
-            deletePlayerModal = <span>Successfully Deleted.</span>
-        }
+        // if (this.state.modalLoading) {
+        //     deletePlayerModal = (
+        //         <Spinner
+        //             height="150px"
+        //             width="150px"
+        //             marginTop="100px" />
+        //     )
+        // } else {
+        //     deletePlayerModal = <span>Successfully Deleted.</span>
+        // }
         if (!this.state.deletePlayer) {
             modal = null
         } else {

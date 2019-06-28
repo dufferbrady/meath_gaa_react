@@ -9,31 +9,64 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button'
 
+import Modal from '../../../Components/UI/Modal/Modal'
 import Spinner from '../../../Components/UI/Spinner/Spinner'
 import DashboardLayout from '../../../HOC/DashboardLayout/DashboardLayout';
-import { firebaseMatches } from '../../../Firebase';
+import { firebaseDB, firebaseMatches } from '../../../Firebase';
 import { getFirebaseDataHandler } from '../../../Components/misc/helpers'
+import classes from './Matches.module.css'
 
 class Matches extends Component {
 
     state = {
         matches: null,
-        loading: true
+        deleteMatch: null,
+        deleteMatchSuccess: false,
+        loading: true,
+        modalLoading: false,
+        showBackdrop: false
     }
 
     componentDidMount() {
-        firebaseMatches.once('value').then(snapshot => {
-            const matches = getFirebaseDataHandler(snapshot.val());
-            this.setState({
-                matches,
-                loading: false
+        firebaseMatches
+            .once('value')
+            .then(snapshot => {
+                const matches = getFirebaseDataHandler(snapshot.val());
+                this.setState({
+                    matches,
+                    loading: false
+                })
             })
-            console.log(this.state.matches)
+    }
+
+    toggleBackdropHandler = (value, matchId) => {
+        this.setState({
+            showBackdrop: value
         })
+        this.state.matches.map(match => {
+            if (match.id === matchId) {
+                this.setState({ deleteMatch: match })
+            }
+        })
+    }
+
+    deleteMatchHandler = match => {
+        firebaseDB
+            .ref(`matches/${match.id}`)
+            .remove()
+            .then(() => {
+                this.setState({
+                    modalLoading: true,
+                    deleteMatchSuccess: true
+                })
+            })
+        setTimeout(() => this.setState({ modalLoading: false }), 1000);
+        setTimeout(() => this.props.history.push('/admin_matches'), 2000);
     }
 
     render() {
         let matches = null;
+        let modal = null;
         if (this.state.loading) {
             matches = (
                 <Spinner
@@ -85,6 +118,7 @@ class Matches extends Component {
                                                 Edit</Button>
                                         </Link>
                                         <Button
+                                            onClick={() => this.toggleBackdropHandler(true, match.id)}
                                             variant="contained"
                                             style={{
                                                 background: '#DF4554',
@@ -100,10 +134,51 @@ class Matches extends Component {
                 </Paper>
             )
         }
-
+        if (!this.state.deleteMatch) {
+            modal = null
+        } else {
+            modal = (
+                <Modal
+                    show={this.state.showBackdrop}
+                    click={value => this.toggleBackdropHandler(false)}
+                    cancelModal={value => this.toggleBackdropHandler(false)}>
+                    <div className={classes.Modal_Text}>
+                        {
+                            !this.state.deleteMatchSuccess ?
+                                <div>
+                                    <span>Are you sure you want to delete the match between <strong>{this.state.deleteMatch.home}</strong> and <strong>{this.state.deleteMatch.away}</strong>?</span>
+                                    <div className={classes.Buttons}>
+                                        <Button
+                                            onClick={match => this.deleteMatchHandler(this.state.deleteMatch)}
+                                            variant="contained"
+                                            style={{
+                                                background: '#DF4554',
+                                                color: 'white',
+                                                marginRight: '10px'
+                                            }}>
+                                            Delete</Button>
+                                        <Button
+                                            onClick={value => this.toggleBackdropHandler(false)}
+                                            variant="contained"
+                                            style={{
+                                                background: '#259C41',
+                                                color: 'white',
+                                                marginLeft: '10px'
+                                            }}>
+                                            Cancel</Button>
+                                    </div>
+                                </div>
+                                :
+                                <span>Successfully Deleted.</span>
+                        }
+                    </div>
+                </Modal>
+            )
+        }
         return (
             <DashboardLayout>
                 {matches}
+                {modal}
             </DashboardLayout>
         );
     }

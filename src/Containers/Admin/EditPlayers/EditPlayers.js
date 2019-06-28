@@ -35,13 +35,24 @@ class EditMatches extends Component {
                 validationMessage: ''
             },
             position: {
-                element: 'input',
+                element: 'select',
                 value: '',
                 config: {
                     name: 'position_input',
-                    type: 'text',
+                    type: 'select',
                     label: 'Position',
-                    required: true
+                    options: [
+                        {key: 'GK', value: 'Goalkeeper'},
+                        {key: 'DF', value: 'Corner Back'},
+                        {key: 'DF', value: 'Full Back'},
+                        {key: 'DF', value: 'Wing Back'},
+                        {key: 'DF', value: 'Center Back'},
+                        {key: 'MD', value: 'Midfield'},
+                        {key: 'FW', value: 'Wing Forward'},
+                        {key: 'FW', value: 'Center Forward'},
+                        {key: 'FW', value: 'Corner Forward'},
+                        {key: 'FW', value: 'Full Forward'},
+                    ]
                 },
                 showLabel: true,
                 validation: {
@@ -292,14 +303,18 @@ class EditMatches extends Component {
                                 borderRadius: '4px',
                                 border: 'transparent',
                                 marginBottom: '5vh',
-                                boxSizing: 'border-box'
+                                boxSizing: 'border-box',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'flex-start'
                             }}
                             label={{
                                 background: '#259C41',
                                 color: '#FED206',
                                 fontSize: '1.5rem',
                                 padding: '5px 10px',
-                                marginBottom: '20px'
+                                marginBottom: '20px',
+                                width: 'fit-content'
                             }}
                             id={'position'}
                             formData={this.state.formData.position}
