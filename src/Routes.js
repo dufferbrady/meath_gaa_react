@@ -6,6 +6,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import Layout from '../src/HOC/Layout/Layout'
 import Home from './Components/Home/Home'
 import SignIn from './Components/SignIn/SignIn'
+import TheTeam from './Components/TheTeam/TheTeam'
 
 import Dashboard from './Components/Admin/Dashboard/Dashboard'
 import AdminMatches from './Containers/Admin/Matches/Matches'
@@ -32,6 +33,7 @@ const Routes = props => {
         <PrivateRoute {...props} exact component={Dashboard} path='/dashboard' />
         <PublicRoute  {...props} restricted={false} exact component={Home} path='/' />
         <PublicRoute  {...props} restricted={true} exact component={SignIn} path='/sign-in' />
+        <PublicRoute  {...props} restricted={false} exact component={TheTeam} path='/The_Team' />
       </Switch>
     </Layout>
   );

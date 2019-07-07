@@ -1,0 +1,18 @@
+.TheTeam {
+    background: url('/images/the_players.png') no-repeat fixed;
+    background-size: cover;
+    height: 100vh;
+    margin-top: 90px;
+}
+
+.TheTeam_Cover {
+    margin: 0;
+    padding: 0;
+    background: #083512;
+    opacity: 0.75;
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    position: absolute;
+    z-index: 1;
+}

@@ -29,7 +29,7 @@ const Header = () => {
                 <Link to="/Fixtures">
                     <Button color="inherit">Fixtures</Button>
                 </Link>
-                <Link to="/The-Team">
+                <Link to="/The_Team">
                     <Button color="inherit">The Team</Button>
                 </Link>
             </Toolbar>
