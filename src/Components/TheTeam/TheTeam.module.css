@@ -16,3 +16,18 @@
     position: absolute;
     z-index: 1;
 }
+
+.TheTeam_Container {
+    padding: 50px;
+    position: relative;
+    z-index: 10;
+}
+
+.Tags {
+    display: flex;
+    flex-direction: column;
+}
+
+.Tags Tag {
+    width: fit-content;
+}
