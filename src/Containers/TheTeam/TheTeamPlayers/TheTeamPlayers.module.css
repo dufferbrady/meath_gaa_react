@@ -1,0 +1,13 @@
+.Container {
+    width: 100%;
+    background: white;
+    margin-top: 50px;
+}
+
+.Text {
+    color: white;
+}
+
+.Image {
+    width: 30px;
+}

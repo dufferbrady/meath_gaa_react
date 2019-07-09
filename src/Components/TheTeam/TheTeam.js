@@ -1,8 +1,9 @@
 import React from 'react';
 
-import Tag from '../UI/Tag/Tag'
+import Tag from '../UI/Tag/Tag';
+import TheTeamPlayers from '../../Containers/TheTeam/TheTeamPlayers/TheTeamPlayers';
 
-import classes from './TheTeam.module.css'
+import classes from './TheTeam.module.css';
 
 const TheTeam = () => {
     return (
@@ -25,6 +26,7 @@ const TheTeam = () => {
                     >
                     Senior Football Team</Tag>
                 </div>
+                <TheTeamPlayers />
             </div>
         </div>
     );
