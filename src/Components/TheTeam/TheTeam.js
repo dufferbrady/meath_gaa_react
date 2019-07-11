@@ -15,16 +15,16 @@ const TheTeam = () => {
                         background='#259C41'
                         color='white'
                         size='25px'
-                        add={{width: 'fit-content'}}
+                        add={{ width: 'fit-content' }}
                     >
-                    Meath Gaa</Tag>
+                        Meath Gaa</Tag>
                     <Tag
                         background='#083412'
                         color='white'
                         size='40px'
-                        add={{width: 'fit-content'}}
+                        add={{ width: 'fit-content' }}
                     >
-                    Senior Football Team</Tag>
+                        Senior Football Team</Tag>
                 </div>
                 <TheTeamPlayers />
             </div>

@@ -1,7 +1,7 @@
 .TheTeam {
     background: url('/images/the_players.png') no-repeat fixed;
     background-size: cover;
-    height: 100vh;
+    height: fit-content;
     margin-top: 90px;
 }
 
@@ -13,8 +13,9 @@
     height: 100%;
     width: 100%;
     display: inline-block;
-    position: absolute;
+    position: fixed;
     z-index: 1;
+    top: 0;
 }
 
 .TheTeam_Container {

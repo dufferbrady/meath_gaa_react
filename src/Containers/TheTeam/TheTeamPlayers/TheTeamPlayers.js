@@ -9,6 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import Spinner from '../../../Components/UI/Spinner/Spinner'
+import SectionBar from '../../../Components/UI/SectionBar/SectionBar';
 
 import { firebasePlayers } from '../../../Firebase';
 import { getFirebaseDataHandler } from '../../../Components/misc/helpers';
@@ -25,6 +26,7 @@ class TheTeamPlayers extends Component {
     componentDidMount() {
         firebasePlayers.once('value').then(snapshot => {
             const players = getFirebaseDataHandler(snapshot.val());
+            console.log(players.position)
             this.setState({
                 players,
                 loading: false
@@ -49,10 +51,12 @@ class TheTeamPlayers extends Component {
                     justifyContent: 'flex-start',
                     padding: '25px',
                 }}>
-                    {this.state.players.map(player => (
-                        <Card style={{
+                    {this.state.players.map((player, i) => (
+                        <Card
+                        key={i}
+                        style={{
                             width: '20%',
-                            margin: '5px',
+                            margin: '5px 25px',
                         }}>
                             <CardContent style={{
                                 display: 'flex',
@@ -60,7 +64,7 @@ class TheTeamPlayers extends Component {
                                 justifyContent: 'flex-start',
                                 alignItems: 'center'
                             }}>
-                                <Avatar src={player.imageURL} style={{width: '75px', height: '75px'}} />
+                                <Avatar src={player.imageURL} style={{width: '75px', height: '75px', marginRight: '10px'}} />
                                 <Typography variant="h6" gutterBottom>
                                     {player.name}
                                 </Typography>
@@ -85,6 +89,15 @@ class TheTeamPlayers extends Component {
                         <Tab style={{ fontSize: '15px' }} label="Forwards" />
                     </Tabs>
                 </AppBar>
+                <SectionBar 
+                sectionName={'Goalkeepers'} 
+                style={{
+                    backgroundColor: '#F9FAFB',
+                    padding: '15px 40px',
+                    fontSize: '15px',
+                    textTransform: 'uppercase',
+                    color: '#747D8D'    
+                }}/>
                 {players}
             </div>
         );
