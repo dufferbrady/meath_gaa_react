@@ -12,7 +12,7 @@ import Spinner from '../../../Components/UI/Spinner/Spinner'
 import SectionBar from '../../../Components/UI/SectionBar/SectionBar';
 
 import { firebasePlayers } from '../../../Firebase';
-import { getFirebaseDataHandler } from '../../../Components/misc/helpers';
+import { getFirebaseDataHandler, playerSeperator } from '../../../Components/misc/helpers';
 
 import classes from './TheTeamPlayers.module.css';
 
@@ -20,18 +20,32 @@ class TheTeamPlayers extends Component {
 
     state = {
         players: null,
+        goalkeepers: null,
+        defender: null,
+        midfielders: null,
+        forwards: null,
         loading: true
     }
 
     componentDidMount() {
-        firebasePlayers.once('value').then(snapshot => {
-            const players = getFirebaseDataHandler(snapshot.val());
-            console.log(players.position)
-            this.setState({
-                players,
-                loading: false
+        firebasePlayers
+            .once('value')
+            .then(snapshot => {
+                console.log(snapshot.val())
+                const players = getFirebaseDataHandler(snapshot.val());
+                const goalkeepers = playerSeperator(players, 'GK')
+                const defenders = playerSeperator(players, 'DF')
+                const midfielders = playerSeperator(players, 'MD')
+                const forwards = playerSeperator(players, 'FD')
+                this.setState({
+                    players,
+                    goalkeepers,
+                    defenders,
+                    midfielders,
+                    forwards,
+                    loading: false
+                })
             })
-        })
     }
 
     render() {
@@ -49,28 +63,136 @@ class TheTeamPlayers extends Component {
                     display: 'flex',
                     flexFlow: 'row wrap',
                     justifyContent: 'flex-start',
-                    padding: '25px',
+                    paddingBottom: '25px'
                 }}>
-                    {this.state.players.map((player, i) => (
-                        <Card
-                        key={i}
+                    <SectionBar
+                        sectionName={'Goalkeepers'}
                         style={{
-                            width: '20%',
-                            margin: '5px 25px',
-                        }}>
+                            margin: '0 0 15px 0',
+                            width: '100%',
+                            backgroundColor: '#F9FAFB',
+                            padding: '15px 40px',
+                            fontSize: '15px',
+                            textTransform: 'uppercase',
+                            color: '#747D8D',
+                            borderBottom: '2px solid #E8EAEC'
+                        }} />
+                    {this.state.goalkeepers.map((player, i) => (
+                        <Card
+                            key={i}
+                            style={{
+                                width: '20%',
+                                margin: '5px 25px',
+                            }}>
                             <CardContent style={{
                                 display: 'flex',
                                 flexFlow: 'row nowrap',
                                 justifyContent: 'flex-start',
                                 alignItems: 'center'
                             }}>
-                                <Avatar src={player.imageURL} style={{width: '75px', height: '75px', marginRight: '10px'}} />
+                                <Avatar src={player.imageURL} style={{ width: '75px', height: '75px', marginRight: '10px' }} />
                                 <Typography variant="h6" gutterBottom>
                                     {player.name}
                                 </Typography>
                             </CardContent>
                         </Card>
                     ))}
+                    <SectionBar
+                        sectionName={'Defenders'}
+                        style={{
+                            margin: '15px 0',
+                            width: '100%',
+                            backgroundColor: '#F9FAFB',
+                            padding: '15px 40px',
+                            fontSize: '15px',
+                            textTransform: 'uppercase',
+                            color: '#747D8D',
+                            border: '2px solid #E8EAEC'
+                        }} />
+                    {this.state.defenders.map((player, i) => (
+                        <Card
+                            key={i}
+                            style={{
+                                width: '20%',
+                                margin: '5px 25px',
+                            }}>
+                            <CardContent style={{
+                                display: 'flex',
+                                flexFlow: 'row nowrap',
+                                justifyContent: 'flex-start',
+                                alignItems: 'center'
+                            }}>
+                                <Avatar src={player.imageURL} style={{ width: '75px', height: '75px', marginRight: '10px' }} />
+                                <Typography variant="h6" gutterBottom>
+                                    {player.name}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    ))}
+                    <SectionBar
+                        sectionName={'Midfielders'}
+                        style={{
+                            margin: '15px 0',
+                            width: '100%',
+                            backgroundColor: '#F9FAFB',
+                            padding: '15px 40px',
+                            fontSize: '15px',
+                            textTransform: 'uppercase',
+                            color: '#747D8D',
+                            border: '2px solid #E8EAEC'
+                        }} />
+                    {this.state.midfielders.map((player, i) => (
+                        <Card
+                            key={i}
+                            style={{
+                                width: '20%',
+                                margin: '5px 25px',
+                            }}>
+                            <CardContent style={{
+                                display: 'flex',
+                                flexFlow: 'row nowrap',
+                                justifyContent: 'flex-start',
+                                alignItems: 'center'
+                            }}>
+                                <Avatar src={player.imageURL} style={{ width: '75px', height: '75px', marginRight: '10px' }} />
+                                <Typography variant="h6" gutterBottom>
+                                    {player.name}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    ))}
+                    <SectionBar
+                        sectionName={'Forwards'}
+                        style={{
+                            margin: '15px 0',
+                            width: '100%',
+                            backgroundColor: '#F9FAFB',
+                            padding: '15px 40px',
+                            fontSize: '15px',
+                            textTransform: 'uppercase',
+                            color: '#747D8D',
+                            border: '2px solid #E8EAEC'
+                        }} />
+                    {this.state.forwards.map((player, i) => (
+                        <Card
+                            key={i}
+                            style={{
+                                width: '20%',
+                                margin: '5px 25px',
+                            }}>
+                            <CardContent style={{
+                                display: 'flex',
+                                flexFlow: 'row nowrap',
+                                justifyContent: 'flex-start',
+                                alignItems: 'center'
+                            }}>
+                                <Avatar src={player.imageURL} style={{ width: '75px', height: '75px', marginRight: '10px' }} />
+                                <Typography variant="h6" gutterBottom>
+                                    {player.name}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    ))}       
                 </Paper>
             )
         }
@@ -89,15 +211,6 @@ class TheTeamPlayers extends Component {
                         <Tab style={{ fontSize: '15px' }} label="Forwards" />
                     </Tabs>
                 </AppBar>
-                <SectionBar 
-                sectionName={'Goalkeepers'} 
-                style={{
-                    backgroundColor: '#F9FAFB',
-                    padding: '15px 40px',
-                    fontSize: '15px',
-                    textTransform: 'uppercase',
-                    color: '#747D8D'    
-                }}/>
                 {players}
             </div>
         );

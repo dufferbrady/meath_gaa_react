@@ -21,7 +21,8 @@ const validationHandler = input => {
 const getFirebaseDataHandler = DBdata => {
     let data = [];
     console.log(DBdata)
-    Object.keys(DBdata)
+    Object
+        .keys(DBdata)
         .map(item => {
             data.push({
                 ...DBdata[item],
@@ -43,8 +44,31 @@ const dateConvertor = date => {
     return dateFinal
 }
 
+const playerSeperator = (players, position) => {
+    if(position === 'GK') {
+        return players.filter(player => player.position === 'Goalkeeper')
+    }else if(position === 'DF') {
+        return players.filter(player => (
+            player.position === 'Corner Back' ||
+            player.position === 'Full Back' ||
+            player.position === 'Wing Back' || 
+            player.position === 'Center Back'
+        ))
+    }else if(position === 'MD') {
+        return players.filter(player => player.position === 'Midfield')
+    }else if(position === 'FD') {
+        return players.filter(player => (
+            player.position === 'Corner Forward' ||
+            player.position === 'Full Forward' ||
+            player.position === 'Wing Forward' || 
+            player.position === 'Center Forward'
+        ))
+    }
+}
+
 export {
     validationHandler,
     getFirebaseDataHandler,
-    dateConvertor
+    dateConvertor,
+    playerSeperator
 }
