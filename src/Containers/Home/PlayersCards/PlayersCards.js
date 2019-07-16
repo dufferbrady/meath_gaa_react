@@ -5,7 +5,7 @@ import { firebase, firebasePlayers } from '../../../Firebase'
 import classes from './PlayersCards.module.css'
 import Spinner from '../../../Components/UI/Spinner/Spinner'
 import PlayerCard from '../../../Components/Home/PlayerCard/PlayerCard'
-import { getFirebaseDataHandler } from '../../../Components/misc/helpers'
+import { getFirebaseDataHandler, getRandomPlayers } from '../../../Components/misc/helpers'
 
 class PlayersCards extends Component {
 
@@ -17,7 +17,8 @@ class PlayersCards extends Component {
 
     componentDidMount() {
         firebasePlayers.once('value').then(snapshot => {
-            const players = getFirebaseDataHandler(snapshot.val());
+            const totalPlayers = getFirebaseDataHandler(snapshot.val());
+            const players = getRandomPlayers(totalPlayers, 5);
             this.setState({
                 players,
                 loading: false

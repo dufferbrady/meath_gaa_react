@@ -66,7 +66,16 @@ const playerSeperator = (players, position) => {
     }
 }
 
+const getRandomPlayers = (players, num) => {
+    let result = [];
+    for(let i=0; i<num; i++) {
+        result.push(players[i]);
+    }
+    return result;
+}
+
 export {
+    getRandomPlayers,
     validationHandler,
     getFirebaseDataHandler,
     dateConvertor,
