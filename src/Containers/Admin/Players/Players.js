@@ -137,16 +137,6 @@ class Players extends Component {
                 </Paper>
             )
         }
-        // if (this.state.modalLoading) {
-        //     deletePlayerModal = (
-        //         <Spinner
-        //             height="150px"
-        //             width="150px"
-        //             marginTop="100px" />
-        //     )
-        // } else {
-        //     deletePlayerModal = <span>Successfully Deleted.</span>
-        // }
         if (!this.state.deletePlayer) {
             modal = null
         } else {

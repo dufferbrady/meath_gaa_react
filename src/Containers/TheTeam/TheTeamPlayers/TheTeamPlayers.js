@@ -13,6 +13,8 @@ import SectionBar from '../../../Components/UI/SectionBar/SectionBar';
 
 import { firebasePlayers } from '../../../Firebase';
 import { getFirebaseDataHandler, playerSeperator } from '../../../Components/misc/helpers';
+import Modal from '../../../Components/UI/Modal/Modal';
+import Tag from '../../../Components/UI/Tag/Tag';
 
 import classes from './TheTeamPlayers.module.css';
 
@@ -24,7 +26,11 @@ class TheTeamPlayers extends Component {
         defender: null,
         midfielders: null,
         forwards: null,
-        loading: true
+        loading: true,
+        selectPlayer: null,
+        selectPlayerSuccess: false,
+        modalLoading: false,
+        showBackdrop: false
     }
 
     componentDidMount() {
@@ -48,8 +54,20 @@ class TheTeamPlayers extends Component {
             })
     }
 
+    toggleBackdropHandler = (value, playerId) => {
+        this.setState({
+            showBackdrop: value
+        })
+        this.state.players.map(player => {
+            if (player.id === playerId) {
+                this.setState({ selectPlayer: player })
+            }
+        })
+    }
+
     render() {
         let players = null;
+        let modal = null;
         if (this.state.loading) {
             players = (
                 <Spinner
@@ -79,6 +97,8 @@ class TheTeamPlayers extends Component {
                         }} />
                     {this.state.goalkeepers.map((player, i) => (
                         <Card
+                            onClick={() => this.toggleBackdropHandler(true, player.id)}
+                            className={classes.Card}
                             key={i}
                             style={{
                                 width: '20%',
@@ -111,6 +131,8 @@ class TheTeamPlayers extends Component {
                         }} />
                     {this.state.defenders.map((player, i) => (
                         <Card
+                            className={classes.Card}
+                            onClick={() => this.toggleBackdropHandler(true, player.id)}
                             key={i}
                             style={{
                                 width: '20%',
@@ -143,6 +165,8 @@ class TheTeamPlayers extends Component {
                         }} />
                     {this.state.midfielders.map((player, i) => (
                         <Card
+                            className={classes.Card}
+                            onClick={() => this.toggleBackdropHandler(true, player.id)}
                             key={i}
                             style={{
                                 width: '20%',
@@ -175,6 +199,8 @@ class TheTeamPlayers extends Component {
                         }} />
                     {this.state.forwards.map((player, i) => (
                         <Card
+                            className={classes.Card}
+                            onClick={() => this.toggleBackdropHandler(true, player.id)}
                             key={i}
                             style={{
                                 width: '20%',
@@ -192,8 +218,58 @@ class TheTeamPlayers extends Component {
                                 </Typography>
                             </CardContent>
                         </Card>
-                    ))}       
+                    ))}
                 </Paper>
+            )
+        }
+        if (!this.state.selectPlayer) {
+            modal = null
+        } else {
+            modal = (
+                <Modal
+                    show={this.state.showBackdrop}
+                    click={value => this.toggleBackdropHandler(false)}
+                    cancelModal={value => this.toggleBackdropHandler(false)}>
+                    <div>
+                        {
+                            <div className={classes.Modal}>
+                                <img
+                                    className={classes.ModalImage}
+                                    src={this.state.selectPlayer.imageURL} />
+                                <div className={classes.Tags}>
+                                    <Tag
+                                        background='#259C41'
+                                        color='white'
+                                        size='15px'
+                                        add={{ width: 'fit-content' }}
+                                    >
+                                        Player Profile</Tag>
+                                    <Tag
+                                        background='#083412'
+                                        color='white'
+                                        size='25px'
+                                        add={{ width: 'fit-content' }}
+                                    >
+                                        {this.state.selectPlayer.name}</Tag>
+                                    <div className={classes.Info}>
+                                        <div className={classes.InfoBlock}>
+                                            <span className={classes.InfoHeader}>Age</span>
+                                            <span>25</span>
+                                        </div>
+                                        <div className={classes.InfoBlock}>
+                                            <span className={classes.InfoHeader}>Club</span>
+                                            <span>{this.state.selectPlayer.club}</span>
+                                        </div>
+                                        <div className={classes.InfoBlock}>
+                                            <span className={classes.InfoHeader}>Position</span>
+                                            <span>{this.state.selectPlayer.position}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </Modal>
             )
         }
         return (
@@ -211,6 +287,7 @@ class TheTeamPlayers extends Component {
                         <Tab style={{ fontSize: '15px' }} label="Forwards" />
                     </Tabs>
                 </AppBar>
+                {modal}
                 {players}
             </div>
         );
