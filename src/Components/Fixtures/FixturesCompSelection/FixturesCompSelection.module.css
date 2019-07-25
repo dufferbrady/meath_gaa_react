@@ -5,6 +5,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    flex-grow: 1;
 }
 
 .Fixtures_Header {
@@ -15,11 +16,11 @@
     letter-spacing: 1.5px;
 }
 
-.Buttons_Container {
-    font-size: 175%;
+.Tab_Container {
     margin: 2.5% 0;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    width: 80%;
 }
