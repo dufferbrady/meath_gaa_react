@@ -35,13 +35,33 @@ class EditMatches extends Component {
                 validationMessage: ''
             },
             fixture: {
-                element: 'input',
+                element: 'select',
                 value: '',
                 config: {
                     name: 'fixture_input',
-                    type: 'text',
+                    type: 'select',
                     label: 'Match Competition',
-                    required: true
+                    options: [
+                        { key: "Allianz Football League", value: "Allianz Football League" },
+                        { key: "Leinster Championship", value: "Leinster Championship" },
+                        { key: "All Ireland Championship", value: "All Ireland Championship" }
+                    ]
+                },
+                showLabel: true,
+                validation: {
+                    required: true,
+                    email: false
+                },
+                valid: false,
+                validationMessage: ''
+            },
+            stage: {
+                element: 'input',
+                value: '',
+                config: {
+                    name: 'stage_input',
+                    type: 'text',
+                    label: 'Competition Stage'
                 },
                 showLabel: true,
                 validation: {
@@ -174,16 +194,16 @@ class EditMatches extends Component {
         firebaseCountyTeams
             .once('value')
             .then(snapshot => {
-            const teams = snapshot.val();
-            let teamOptions = [];
-            snapshot.forEach(childsnapshot => {
-                teamOptions.push({
-                    key: childsnapshot.val().name,
-                    value: childsnapshot.val().name
-                })
+                const teams = snapshot.val();
+                let teamOptions = [];
+                snapshot.forEach(childsnapshot => {
+                    teamOptions.push({
+                        key: childsnapshot.val().name,
+                        value: childsnapshot.val().name
+                    })
+                });
+                this.updateFormElementsHandler(match, teams, teamOptions, type, matchId)
             });
-            this.updateFormElementsHandler(match, teams, teamOptions, type, matchId)
-        });
     }
 
     updateFormElementsHandler = (match, teams, teamOptions, type, matchId) => {
@@ -306,6 +326,27 @@ class EditMatches extends Component {
                             id={'date'}
                             formData={this.state.formData.date}
                             change={input => this.inputChangeHandler(input)} />
+                            
+                        <Formfield
+                            add={{
+                                width: '100%',
+                                padding: '15px 10px',
+                                borderRadius: '4px',
+                                border: 'transparent',
+                                marginBottom: '5vh',
+                                boxSizing: 'border-box'
+                            }}
+                            label={{
+                                background: '#259C41',
+                                color: '#FED206',
+                                fontSize: '1.5rem',
+                                padding: '5px 10px',
+                                marginBottom: '20px',
+                                width: 'fit-content'
+                            }}
+                            id={'fixture'}
+                            formData={this.state.formData.fixture}
+                            change={input => this.inputChangeHandler(input)} />
                         <Formfield
                             add={{
                                 width: '100%',
@@ -322,8 +363,8 @@ class EditMatches extends Component {
                                 padding: '5px 10px',
                                 marginBottom: '20px'
                             }}
-                            id={'fixture'}
-                            formData={this.state.formData.fixture}
+                            id={'stage'}
+                            formData={this.state.formData.stage}
                             change={input => this.inputChangeHandler(input)} />
                         <div className={classes.Home_container}>
                             <div className={classes.Home_label}>Home Team</div>
