@@ -51,8 +51,8 @@ class LeagueFixtures extends Component {
                     <PositionTable teams={this.state.leaguePositions} />
                 </Grid>
             </Grid>
-                );
-            }
+            );
         }
+    }
         
 export default LeagueFixtures;
