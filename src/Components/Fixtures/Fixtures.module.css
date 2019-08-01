@@ -1,9 +1,8 @@
 .Fixtures {
     background: url('/images/fixtures.png') no-repeat fixed;
     background-size: cover;
-    height: fit-content;
     margin-top: 90px;
-    height: 500px;
+    /* height: 500px; */
 }
 
 .Fixtures_Cover {

@@ -1,35 +1,54 @@
 import React, { Component } from 'react';
 
-import { firebaseMatches } from '../../../Firebase';
-import { getFirebaseDataHandler } from '../../../Components/misc/helpers';
-
+import { firebaseMatches, firebaseLeaguePostions } from '../../../Firebase';
+import { getFirebaseDataHandler, matchCompetitionSeperator } from '../../../Components/misc/helpers';
+import Grid from '@material-ui/core/Grid';
+import PositionTable from '../PositionTable/PositionTable';
+import MatchesList from '../MatchesList/MatchesList';
+import classes from './LeagueFixtures.module.css';
 
 class LeagueFixtures extends Component {
 
     state = {
-        matches: null,
+        leagueMatches: null,
+        leaguePositions: null,
         loading: true,
     }
 
     componentDidMount() {
-        firebaseMatches.once('value').then(snapshot => {
-            const matches = getFirebaseDataHandler(snapshot.val());
-            this.setState({
-                matches,
-                loading: false
+        firebaseMatches
+            .once('value')
+            .then(snapshot => {
+                const matches = getFirebaseDataHandler(snapshot.val());
+                const leagueMatches = matchCompetitionSeperator(matches, 'Allianz Football League')
+                this.setState({
+                    leagueMatches
+                })
             })
-            console.log(matches)
-        });
+        firebaseLeaguePostions
+            .once('value')
+            .then(snapshot => {
+                const leaguePositions = getFirebaseDataHandler(snapshot.val());
+                this.setState({
+                    leaguePositions,
+                    loading: false
+                })
+            })
     }
+
 
     render() {
         return (
-            <div>
-                <div>League Table</div>
-                <div>League Fixtures</div>
-            </div>
-        );
-    }
-}
-
+            <Grid container spacing={2} className={classes.League_Fixtures_Container}>
+                <Grid item xs={12} sm={6}>
+                    <MatchesList matches={this.state.leagueMatches} />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <PositionTable teams={this.state.leaguePositions} />
+                </Grid>
+            </Grid>
+                );
+            }
+        }
+        
 export default LeagueFixtures;

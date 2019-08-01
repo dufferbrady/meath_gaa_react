@@ -74,10 +74,17 @@ const getRandomPlayers = (players, num) => {
     return result;
 }
 
+const matchCompetitionSeperator = (matches, matchType) => (
+    matches ?
+    matches.filter(match => match.fixture === matchType)
+    : null
+)
+
 export {
     getRandomPlayers,
     validationHandler,
     getFirebaseDataHandler,
     dateConvertor,
-    playerSeperator
+    playerSeperator,
+    matchCompetitionSeperator
 }

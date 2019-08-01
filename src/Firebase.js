@@ -23,6 +23,7 @@ const firebasePlayers = firebaseDB.ref('players');
 const firebaseFanzone = firebaseDB.ref('fanzone');
 const firebaseCountyTeams = firebaseDB.ref('countyTeams');
 const firebaseClubTeams = firebaseDB.ref('clubTeams');
+const firebaseLeaguePostions = firebaseDB.ref('leaguePositions')
 
 // const clubs = [
 //     { key: 'Please Select a Club', value: '' },
@@ -89,20 +90,26 @@ const firebaseClubTeams = firebaseDB.ref('clubTeams');
 //     { key: 'Wolfe Tones', value: 'Wolfe Tones' }
 // ]
 
-// const newClubTeamRef = firebaseClubTeams.push();
-//     newClubTeamRef.set({
-//         key: 'Wolfe Tones',
-//         value: 'Wolfe Tones'
+// const leaguePositionsRef = firebaseLeaguePostions.push();
+// leaguePositionsRef.set({
+//     team: 'Ti',
+//     p: '7',
+//     w: '1',
+//     d: '1',
+//     l: '5',
+//     diff: '-11',
+//     pts: '3'
 // });
 
 // console.log(firebaseFans);
 
-export { 
+export {
     firebase,
     firebaseDB,
     firebaseMatches,
     firebasePlayers,
     firebaseFanzone,
     firebaseCountyTeams,
-    firebaseClubTeams
+    firebaseClubTeams,
+    firebaseLeaguePostions
 };
