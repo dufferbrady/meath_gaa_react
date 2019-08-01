@@ -22,12 +22,15 @@ const FixturesCompSelection = () => {
                 Competition Selection
             </span>
             <div className={classes.Tab_Container}>
-                <AppBar position="static" style={{ backgroundColor: '#083412', color: 'white' }}>
+                <AppBar position="static" style={{ backgroundColor: '#259C41', color: 'white', boxShadow: 'none' }}>
                     <Tabs variant="fullWidth" value={value} onChange={changeFixturesHandler}>
                         <Tab
                             style={{
                                 fontSize: '15px',
                                 letterSpacing: '1px',
+                                color: 'white',
+                                borderBottom: 'none',
+                                flexGrow: '1'
                             }}
                             label="League"
                             value={0} />
@@ -35,6 +38,9 @@ const FixturesCompSelection = () => {
                             style={{
                                 fontSize: '15px',
                                 letterSpacing: '1px',
+                                color: 'white',
+                                borderBottom: 'none',
+                                flexGrow: '1'
                             }}
                             label="Championship"
                             value={1} />
