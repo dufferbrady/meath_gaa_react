@@ -41,16 +41,16 @@ class LeagueFixtures extends Component {
 
     render() {
         return (
-            <Grid container spacing={2} className={classes.League_Fixtures_Container}>
-                <Grid item xs={12} sm={6}>
+            <div className={classes.Container}>
+                <div className={classes.League_Fixtures}>
                     <FixturesHeader />
                     <MatchesList matches={this.state.leagueMatches} />
-                </Grid>
-                <Grid item xs={12} sm={6}>
+                </div>
+                <div style={{width: "350px"}}>
                     <TableHeader TableName={'League Table'} />
                     <PositionTable teams={this.state.leaguePositions} />
-                </Grid>
-            </Grid>
+                </div>
+            </div>
             );
         }
     }

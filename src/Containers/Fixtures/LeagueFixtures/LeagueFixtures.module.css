@@ -1,7 +1,9 @@
-.League_Fixtures_Container {
-    flex-grow: 1;
+.Container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
 }
 
-.Match_Fixtures {
+.League_Fixtures {
     flex-grow: 1;
 }
