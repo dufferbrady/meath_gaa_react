@@ -4,12 +4,19 @@ import classes from './FixturesHeader.module.css';
 import Button from '../../../Components/UI/Button/Button';
 
 const FixturesHeader = props => {
+
+    const allFixturesHandler = () => {
+        alert('all fixtures clicked')
+    }
+
     return (
         <div className={classes.Container}>
             <div className={classes.Left_Grouping}>
                 <span>Show Fixtures</span>
                 <div className={classes.Buttons}>
-                    <Button add = {{
+                    <Button
+                    click={allFixturesHandler}
+                    add = {{
                         background: '#ffffff',
                         padding: '5px 9px',
                         borderRadius: '3px',

@@ -22,7 +22,7 @@ const FixturesCompSelection = () => {
                 Competition Selection
             </span>
             <div className={classes.Tab_Container}>
-                <AppBar position="static" style={{ backgroundColor: '#259C41', color: 'white', boxShadow: 'none' }}>
+                <AppBar position="static" style={{zIndex: '99', backgroundColor: '#259C41', color: 'white', boxShadow: 'none' }}>
                     <Tabs variant="fullWidth" value={value} onChange={changeFixturesHandler}>
                         <Tab
                             style={{

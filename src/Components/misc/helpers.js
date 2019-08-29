@@ -40,11 +40,10 @@ const dateConvertor = date => {
     const day = dateString.substring(6, 8);
 
     const newDate = new Date(year, month - 1, day);
-    //const dateFinal = `${newDate.substring(0, 3)},${newDate.substring(3, 10)}`
     const dateFinal = newDate.toDateString();
-    console.log(dateString, year, month, day);
-    console.log(newDate);
-    console.log(dateFinal);
+    // console.log(dateString, year, month, day);
+    // console.log(newDate);
+    // console.log(dateFinal);
     return dateFinal
 }
 

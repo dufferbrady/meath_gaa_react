@@ -101,6 +101,12 @@ const firebaseLeaguePostions = firebaseDB.ref('leaguePositions')
 //     pts: '3'
 // });
 
+// const countyTeamsRef = firebaseCountyTeams.push();
+// countyTeamsRef.set({
+//     name: 'Kerry',
+//     nickName: 'The Kingdom'
+// })
+
 // console.log(firebaseFans);
 
 export {

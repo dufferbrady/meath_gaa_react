@@ -32,11 +32,11 @@ const positionTable = props => {
             teams.map((pos, i) => (
                 <TableRow key={i}>
                     <TableCell style={style.Cell}>{pos.team}</TableCell>
-                    <TableCell numeric style={style.Cell}>{pos.p}</TableCell>
-                    <TableCell numeric style={style.Cell}>{pos.w}</TableCell>
-                    <TableCell numeric style={style.Cell}>{pos.d}</TableCell>
-                    <TableCell numeric style={style.Cell}>{pos.l}</TableCell>
-                    <TableCell numeric style={style.Cell}>{pos.pts}</TableCell>
+                    <TableCell style={style.Cell}>{pos.p}</TableCell>
+                    <TableCell style={style.Cell}>{pos.w}</TableCell>
+                    <TableCell style={style.Cell}>{pos.d}</TableCell>
+                    <TableCell style={style.Cell}>{pos.l}</TableCell>
+                    <TableCell style={style.Cell}>{pos.pts}</TableCell>
                 </TableRow>
             ))
             : null

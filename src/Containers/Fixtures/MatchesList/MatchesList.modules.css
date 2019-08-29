@@ -1,0 +1,13 @@
+.ModalContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.MatchInfo {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly
+}
