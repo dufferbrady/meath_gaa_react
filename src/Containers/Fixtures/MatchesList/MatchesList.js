@@ -10,7 +10,6 @@ import Button from '@material-ui/core/Button'
 
 import { firebaseMatches } from '../../../Firebase';
 import { getFirebaseDataHandler, matchCompetitionSeperator } from '../../../Components/misc/helpers'
-import classes from './MatchesList.modules.css';
 
 const styles = {
     TableCell: {
@@ -127,24 +126,34 @@ const styles = {
 class LeagueMatchesList extends Component {
 
     state = {
-        leagueMatches: null,
+        leagueMatches: this.props.matches,
         moreMatchInfo: null,
         loading: true,
         modalLoading: false,
         showBackdrop: false
     }
 
-    componentDidMount() {
-        firebaseMatches
-            .once('value')
-            .then(snapshot => {
-                const matches = getFirebaseDataHandler(snapshot.val());
-                const leagueMatches = matchCompetitionSeperator(matches, 'Allianz Football League')
-                this.setState({
-                    leagueMatches
-                })
+    componentDidUpdate(prevProps, prevState) {
+        // console.log(prevProps, prevState);
+        // console.log(this.props.matches, this.state.leagueMatches);
+        if(this.props.matches !== prevState.leagueMatches) {
+            this.setState({
+                leagueMatches: this.props.matches
             })
+        }
     }
+
+    // componentDidMount() {
+    //     firebaseMatches
+    //         .once('value')
+    //         .then(snapshot => {
+    //             const matches = getFirebaseDataHandler(snapshot.val());
+    //             const leagueMatches = matchCompetitionSeperator(matches, 'Allianz Football League')
+    //             this.setState({
+    //                 leagueMatches
+    //             })
+    //         })
+    // }
 
     toggleBackdropHandler = (value, matchId) => {
         console.log('clicked')

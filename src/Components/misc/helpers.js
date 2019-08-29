@@ -41,9 +41,7 @@ const dateConvertor = date => {
 
     const newDate = new Date(year, month - 1, day);
     const dateFinal = newDate.toDateString();
-    // console.log(dateString, year, month, day);
-    // console.log(newDate);
-    // console.log(dateFinal);
+
     return dateFinal
 }
 
@@ -69,6 +67,20 @@ const playerSeperator = (players, position) => {
     }
 }
 
+const fixtureSeperator = (fixtures, seperator) => {
+    if(seperator === 'played') {
+        return fixtures.filter(fixture => fixture.fixtureCondition === 'played');
+    } else if(seperator === 'not played') {
+        return fixtures.filter(fixture => fixture.fixtureCondition === 'not played');
+    } else if(seperator === 'w') {
+        return fixtures.filter(fixture => fixture.meathResult === 'w');
+    } else if(seperator === 'd') {
+        return fixtures.filter(fixture => fixture.meathResult === 'd');
+    } else if(seperator === 'l') {
+        return fixtures.filter(fixture => fixture.meathResult === 'l');
+    } else return fixtures
+}
+
 const getRandomPlayers = (players, num) => {
     let result = [];
     for(let i=0; i<num; i++) {
@@ -89,5 +101,6 @@ export {
     getFirebaseDataHandler,
     dateConvertor,
     playerSeperator,
-    matchCompetitionSeperator
+    matchCompetitionSeperator,
+    fixtureSeperator
 }

@@ -39,7 +39,6 @@ class TheTeamPlayers extends Component {
         firebasePlayers
             .once('value')
             .then(snapshot => {
-                console.log(snapshot.val())
                 const players = getFirebaseDataHandler(snapshot.val());
                 const goalkeepers = playerSeperator(players, 'GK')
                 const defenders = playerSeperator(players, 'DF')
