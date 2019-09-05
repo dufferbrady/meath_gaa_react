@@ -120,6 +120,15 @@ const styles = {
         marginLeft: '5px',
         fontSize: '14px',
         fontWeight: '500'
+    },
+    NoFixtureMessage: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        padding: '10px 0',
+        marginTop: '25px',
+        fontSize: '20px'
     }
 };
 
@@ -128,35 +137,20 @@ class LeagueMatchesList extends Component {
     state = {
         leagueMatches: this.props.matches,
         moreMatchInfo: null,
-        loading: true,
-        modalLoading: false,
+        showMessage: this.props.message,
         showBackdrop: false
     }
 
     componentDidUpdate(prevProps, prevState) {
-        // console.log(prevProps, prevState);
-        // console.log(this.props.matches, this.state.leagueMatches);
-        if(this.props.matches !== prevState.leagueMatches) {
+        if (this.props.matches !== prevState.leagueMatches) {
             this.setState({
-                leagueMatches: this.props.matches
+                leagueMatches: this.props.matches,
+                showMessage: this.props.message
             })
         }
     }
 
-    // componentDidMount() {
-    //     firebaseMatches
-    //         .once('value')
-    //         .then(snapshot => {
-    //             const matches = getFirebaseDataHandler(snapshot.val());
-    //             const leagueMatches = matchCompetitionSeperator(matches, 'Allianz Football League')
-    //             this.setState({
-    //                 leagueMatches
-    //             })
-    //         })
-    // }
-
     toggleBackdropHandler = (value, matchId) => {
-        console.log('clicked')
         this.setState({
             showBackdrop: value
         })
@@ -168,8 +162,8 @@ class LeagueMatchesList extends Component {
     }
 
     render() {
-        let modal = null
-        let leagueMatches = null
+        let modal = null;
+        let leagueMatches = null;
         if (this.state.leagueMatches) {
             leagueMatches = (
                 this.state.leagueMatches.map((match, i) => (
@@ -253,6 +247,9 @@ class LeagueMatchesList extends Component {
         return (
             <div>
                 {modal}
+                <div>
+                    {this.state.showMessage ? <div style={styles.NoFixtureMessage}>Sorry, there are no fixtures to show!</div> : null}
+                </div>
                 <Table>
                     <TableBody>
                         {leagueMatches}

@@ -30,7 +30,6 @@ class FixturesHeader extends Component {
 
     fixtureSeperatorHandler = (fixtures, seperator) => {
         const updatedFixtures = fixtureSeperator(fixtures, seperator);
-        console.log(updatedFixtures)
         this.setState({
             showMatches: updatedFixtures
         })
@@ -38,8 +37,18 @@ class FixturesHeader extends Component {
 
     render() {
         let leagueMatches = null
-        if (this.state.showMatches) {
-            leagueMatches = <MatchesList matches={this.state.showMatches} />
+        if (this.state.showMatches && this.state.showMatches.length) {
+            leagueMatches = (
+                <MatchesList 
+                matches={this.state.showMatches} 
+                message={false}/>
+            )
+        } else {
+            leagueMatches = (
+                <MatchesList 
+                matches={null} 
+                message={true}/>
+            )
         }
         return (
             <Aux>
