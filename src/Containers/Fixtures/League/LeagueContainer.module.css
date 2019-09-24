@@ -1,0 +1,9 @@
+.Container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.League_Fixtures {
+    flex-grow: 1;
+}

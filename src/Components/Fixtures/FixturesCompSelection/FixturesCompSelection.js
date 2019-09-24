@@ -1,8 +1,8 @@
 import React from 'react';
 
 import classes from './FixturesCompSelection.module.css';
-import LeagueFixtures from '../../../Containers/Fixtures/LeagueFixtures/LeagueFixtures';
-import ChampionshipFixtures from '../../../Containers/Fixtures/ChampionshipFixtures/ChampionshipFixtures';
+import League from '../../../Containers/Fixtures/League/LeagueContainer';
+import Championship from '../../../Containers/Fixtures/Championship/ChampionshipContainer';
 
 import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
@@ -47,8 +47,8 @@ const FixturesCompSelection = () => {
                     </Tabs>
                 </AppBar>
             </div>
-            {value === 0 && <LeagueFixtures />}
-            {value === 1 && <ChampionshipFixtures />}
+            {value === 0 && <League />}
+            {value === 1 && <Championship />}
         </Paper>
     );
 };

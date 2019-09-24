@@ -132,19 +132,19 @@ const styles = {
     }
 };
 
-class LeagueMatchesList extends Component {
+class MatchesList extends Component {
 
     state = {
-        leagueMatches: this.props.matches,
+        matches: this.props.matches,
         moreMatchInfo: null,
         showMessage: this.props.message,
         showBackdrop: false
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.matches !== prevState.leagueMatches) {
+        if (this.props.matches !== prevState.matches) {
             this.setState({
-                leagueMatches: this.props.matches,
+                matches: this.props.matches,
                 showMessage: this.props.message
             })
         }
@@ -154,7 +154,7 @@ class LeagueMatchesList extends Component {
         this.setState({
             showBackdrop: value
         })
-        this.state.leagueMatches.map(match => {
+        this.state.matches.map(match => {
             if (match.id === matchId) {
                 this.setState({ moreMatchInfo: match })
             }
@@ -163,18 +163,18 @@ class LeagueMatchesList extends Component {
 
     render() {
         let modal = null;
-        let leagueMatches = null;
-        if (this.state.leagueMatches) {
-            leagueMatches = (
-                this.state.leagueMatches.map((match, i) => (
+        let fixtures = null;
+        if (this.state.matches) {
+            fixtures = (
+                this.state.matches.map((fixture, i) => (
                     <TableRow style={styles.RowContainer} key={i}>
-                        <TableCell style={styles.TableCell}>{match.dateShow}</TableCell>
-                        <TableCell style={styles.TeamCell}>{match.home}</TableCell>
+                        <TableCell style={styles.TableCell}>{fixture.dateShow}</TableCell>
+                        <TableCell style={styles.TeamCell}>{fixture.home}</TableCell>
                         <TableCell style={styles.MiddleCell}>-</TableCell>
-                        <TableCell style={styles.TeamCell}>{match.away}</TableCell>
+                        <TableCell style={styles.TeamCell}>{fixture.away}</TableCell>
                         <TableCell style={styles.TableCell}>
                             <Button
-                                onClick={() => this.toggleBackdropHandler(true, match.id)}
+                                onClick={() => this.toggleBackdropHandler(true, fixture.id)}
                                 add={{
                                     background: '#ffffff',
                                     padding: '5px 9px',
@@ -252,7 +252,7 @@ class LeagueMatchesList extends Component {
                 </div>
                 <Table>
                     <TableBody>
-                        {leagueMatches}
+                        {fixtures}
                     </TableBody>
                 </Table>
             </div>
@@ -264,4 +264,4 @@ class LeagueMatchesList extends Component {
 //     classes: PropTypes.object.isRequired,
 // };
 
-export default withStyles(styles)(LeagueMatchesList)
+export default withStyles(styles)(MatchesList)

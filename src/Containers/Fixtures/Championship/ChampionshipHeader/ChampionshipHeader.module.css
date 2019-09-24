@@ -35,3 +35,25 @@
 .Buttons {
     margin-top: 5px;
 }
+
+.InactiveButton {
+    background: #ffffff;
+    padding: 5px 9px;
+    border-radius: 3px;
+    font-size: 13px;
+    margin-right: 5px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.ActiveButton {
+    background-color: red;
+    padding: 5px 9px;
+    border-radius: 3px;
+    font-size: 13px;
+    margin-right: 5px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}

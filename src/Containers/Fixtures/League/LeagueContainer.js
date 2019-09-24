@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
-import { firebaseMatches, firebaseLeaguePostions } from '../../../Firebase';
-import { getFirebaseDataHandler, matchCompetitionSeperator } from '../../../Components/misc/helpers';
+import {  firebaseLeaguePostions } from '../../../Firebase';
+import { getFirebaseDataHandler } from '../../../Components/misc/helpers';
 import PositionTable from '../PositionTable/PositionTable';
-import MatchesList from '../MatchesList/MatchesList';
-import classes from './LeagueFixtures.module.css';
-import FixturesHeader from '../FixturesHeader/FixturesHeader';
+import classes from './LeagueContainer.module.css';
+import LeagueHeader from './LeagueHeader/LeagueHeader';
 import TableHeader from '../TableHeader/TableHeader';
 
 class LeagueFixtures extends Component {
@@ -32,7 +31,7 @@ class LeagueFixtures extends Component {
         return (
             <div className={classes.Container}>
                 <div className={classes.League_Fixtures}>
-                    <FixturesHeader />
+                    <LeagueHeader />
                 </div>
                 <div style={{width: "350px"}}>
                     <TableHeader TableName={'League Table'} />

@@ -1,0 +1,59 @@
+.Container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: rgb(113, 216, 137);
+    width: 100%;
+    height: fit-content;
+    border-bottom: 2px solid #083412;
+    border-top: 2px solid #083412;
+    height: 75px;
+    box-sizing: border-box;
+}
+
+.Left_Grouping {
+    padding: 10px;
+    width: fit-content;
+    border-right: 2px solid #083412;
+}
+
+.Right_Grouping {
+    padding: 10px;
+    width: fit-content;
+    border-right: 2px solid #083412;
+    color: #083412;
+}
+
+.Left_Grouping span {
+    color: #083412;
+}
+
+.Right_Grouping span {
+    color: #083412;
+}
+
+.Buttons {
+    margin-top: 5px;
+}
+
+.InactiveButton {
+    background: #ffffff;
+    padding: 5px 9px;
+    border-radius: 3px;
+    font-size: 13px;
+    margin-right: 5px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.ActiveButton {
+    background-color: red;
+    padding: 5px 9px;
+    border-radius: 3px;
+    font-size: 13px;
+    margin-right: 5px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
