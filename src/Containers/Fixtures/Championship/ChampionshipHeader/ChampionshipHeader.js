@@ -46,7 +46,7 @@ class ChampionshipHeader extends Component {
             .once('value')
             .then(snapshot => {
                 const matches = getFirebaseDataHandler(snapshot.val());
-                const championshipMatches = matchCompetitionSeperator(matches, 'Allianz Football League')
+                const championshipMatches = matchCompetitionSeperator(matches, 'All Ireland Championship')
                 this.setState({
                     championshipMatches,
                     showMatches: championshipMatches
@@ -97,10 +97,10 @@ class ChampionshipHeader extends Component {
                                 click={() => this.fixturePlayedSeperatorHandler(this.state.championshipMatches, 'all')}
                                 add={this.state.showPlayed === 'all' ? styles.ActiveButton : styles.InactiveButton}>All</Button>
                             <Button
-                                click={() => this.fixturePlayedSeperatorHandler(this.state.ChampionshipMatches, 'played')}
+                                click={() => this.fixturePlayedSeperatorHandler(this.state.championshipMatches, 'played')}
                                 add={this.state.showPlayed === 'played' ? styles.ActiveButton : styles.InactiveButton}>Played</Button>
                             <Button
-                                click={() => this.fixturePlayedSeperatorHandler(this.state.ChampionshipMatches, 'not played')}
+                                click={() => this.fixturePlayedSeperatorHandler(this.state.championshipMatches, 'not played')}
                                 add={this.state.showPlayed === 'not played' ? styles.ActiveButton : styles.InactiveButton}>Not Played</Button>
                         </div>
                     </div>
@@ -108,16 +108,16 @@ class ChampionshipHeader extends Component {
                         <span>Fixture Results</span>
                         <div className={classes.Buttons}>
                             <Button
-                                click={() => this.fixtureResultSeperatorHandler(this.state.ChampionshipMatches, 'all')}
+                                click={() => this.fixtureResultSeperatorHandler(this.state.championshipMatches, 'all')}
                                 add={this.state.showResult === 'all' ? styles.ActiveButton : styles.InactiveButton}>All</Button>
                             <Button 
-                                click={() => this.fixtureResultSeperatorHandler(this.state.ChampionshipMatches, 'w')}
+                                click={() => this.fixtureResultSeperatorHandler(this.state.championshipMatches, 'w')}
                                 add={this.state.showResult === 'w' ? styles.ActiveButton : styles.InactiveButton}>W</Button>
                             <Button 
-                                click={() => this.fixtureResultSeperatorHandler(this.state.ChampionshipMatches, 'l')}
+                                click={() => this.fixtureResultSeperatorHandler(this.state.championshipMatches, 'l')}
                                 add={this.state.showResult === 'l' ? styles.ActiveButton : styles.InactiveButton}>L</Button>
                             <Button 
-                                click={() => this.fixtureResultSeperatorHandler(this.state.ChampionshipMatches, 'd')}
+                                click={() => this.fixtureResultSeperatorHandler(this.state.championshipMatches, 'd')}
                                 add={this.state.showResult === 'd' ? styles.ActiveButton : styles.InactiveButton}>D</Button>
                         </div>
                     </div>
