@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {  firebaseLeaguePostions } from '../../../Firebase';
+import {  firebaseChampionshipPostions } from '../../../Firebase';
 import { getFirebaseDataHandler } from '../../../Components/misc/helpers';
 import PositionTable from '../PositionTable/PositionTable';
 import classes from './ChampionshipContainer.module.css';
@@ -14,17 +14,17 @@ class ChampionshipContainer extends Component {
         loading: true,
     }
 
-    // componentDidMount() {
-    //     firebaseLeaguePostions
-    //         .once('value')
-    //         .then(snapshot => {
-    //             const ChampionshipPositions = getFirebaseDataHandler(snapshot.val());
-    //             this.setState({
-    //                 ChampionshipPositions,
-    //                 loading: false
-    //             })
-    //         })
-    // }
+    componentDidMount() {
+        firebaseChampionshipPostions
+            .once('value')
+            .then(snapshot => {
+                const ChampionshipPositions = getFirebaseDataHandler(snapshot.val());
+                this.setState({
+                    ChampionshipPositions,
+                    loading: false
+                })
+            })
+    }
 
     render() {
         return (

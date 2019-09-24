@@ -23,7 +23,8 @@ const firebasePlayers = firebaseDB.ref('players');
 const firebaseFanzone = firebaseDB.ref('fanzone');
 const firebaseCountyTeams = firebaseDB.ref('countyTeams');
 const firebaseClubTeams = firebaseDB.ref('clubTeams');
-const firebaseLeaguePostions = firebaseDB.ref('leaguePositions')
+const firebaseLeaguePostions = firebaseDB.ref('leaguePositions');
+const firebaseChampionshipPostions = firebaseDB.ref('championshipPositions');
 
 // const clubs = [
 //     { key: 'Please Select a Club', value: '' },
@@ -90,15 +91,15 @@ const firebaseLeaguePostions = firebaseDB.ref('leaguePositions')
 //     { key: 'Wolfe Tones', value: 'Wolfe Tones' }
 // ]
 
-// const leaguePositionsRef = firebaseLeaguePostions.push();
-// leaguePositionsRef.set({
-//     team: 'Ti',
-//     p: '7',
-//     w: '1',
-//     d: '1',
-//     l: '5',
-//     diff: '-11',
-//     pts: '3'
+// const championshipPositionsRef = firebaseChampionshipPostions.push();
+// championshipPositionsRef.set({
+//     team: 'Meath',
+//     p: '3',
+//     w: '0',
+//     d: '0',
+//     l: '3',
+//     diff: '-26',
+//     pts: '0'
 // });
 
 // const countyTeamsRef = firebaseCountyTeams.push();
@@ -117,5 +118,6 @@ export {
     firebaseFanzone,
     firebaseCountyTeams,
     firebaseClubTeams,
-    firebaseLeaguePostions
+    firebaseLeaguePostions,
+    firebaseChampionshipPostions
 };
