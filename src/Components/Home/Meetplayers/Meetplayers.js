@@ -22,7 +22,7 @@ const Meetplayers = () => {
                     color='white'
                     size='20px'
                     link={true}
-                    linkTo="/The-Team"
+                    linkTo="/The_Team"
                 >
                     View all Players
             </Tag>

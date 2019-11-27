@@ -5,7 +5,7 @@ import classes from './Matchblocks.module.css'
 import { firebaseMatches } from '../../../Firebase'
 import Spinner from '../../../Components/UI/Spinner/Spinner'
 import Matchblock from '../../../Components/Home/Matchblock/Matchblock'
-import { getFirebaseDataHandler } from '../../../Components/misc/helpers'
+import { getFirebaseDataHandler, getSelection } from '../../../Components/misc/helpers'
 
 class MatchBlocks extends Component {
 
@@ -16,7 +16,8 @@ class MatchBlocks extends Component {
 
     componentDidMount() {
         firebaseMatches.once('value').then(snapshot => {
-            const matches = getFirebaseDataHandler(snapshot.val());
+            const totalMatches = getFirebaseDataHandler(snapshot.val());
+            const matches = getSelection(totalMatches, 5);
             this.setState({
                 matches,
                 loading: false

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import Fade from 'react-reveal/Fade';
 
-import { firebase, firebasePlayers } from '../../../Firebase'
+import { firebasePlayers } from '../../../Firebase'
 import classes from './PlayersCards.module.css'
 import Spinner from '../../../Components/UI/Spinner/Spinner'
 import PlayerCard from '../../../Components/Home/PlayerCard/PlayerCard'
-import { getFirebaseDataHandler, getRandomPlayers } from '../../../Components/misc/helpers'
+import { getFirebaseDataHandler, getSelection } from '../../../Components/misc/helpers'
 
 class PlayersCards extends Component {
 
@@ -18,7 +18,8 @@ class PlayersCards extends Component {
     componentDidMount() {
         firebasePlayers.once('value').then(snapshot => {
             const totalPlayers = getFirebaseDataHandler(snapshot.val());
-            const players = getRandomPlayers(totalPlayers, 5);
+            const players = getSelection(totalPlayers, 5);
+            console.log(players)
             this.setState({
                 players,
                 loading: false
@@ -32,10 +33,8 @@ class PlayersCards extends Component {
             players = <Spinner height="150px" width="150px" />
         } else {
             players = this.state.players.map((player, index) => (
-                    <Fade right delay={this.state.delay[index]}>
-                        <div
-                            key={player.id}
-                        >
+                    <Fade key={player.id} right delay={this.state.delay[index]}>
+                        <div>
                             <PlayerCard
                                 name={player.name}
                                 image={player.imageURL}

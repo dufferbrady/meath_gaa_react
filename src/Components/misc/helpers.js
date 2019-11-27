@@ -20,7 +20,6 @@ const validationHandler = input => {
 
 const getFirebaseDataHandler = DBdata => {
     let data = [];
-    console.log(DBdata)
     Object
         .keys(DBdata)
         .map(item => {
@@ -29,7 +28,6 @@ const getFirebaseDataHandler = DBdata => {
                 id: item,
             })
         });
-    console.log(data)
     return data
 }
 
@@ -81,10 +79,10 @@ const fixtureSeperator = (fixtures, seperator) => {
     } else return fixtures
 }
 
-const getRandomPlayers = (players, num) => {
+const getSelection = (listItem, num) => {
     let result = [];
     for(let i=0; i<num; i++) {
-        result.push(players[i]);
+        result.push(listItem[i]);
     }
     return result;
 }
@@ -96,7 +94,7 @@ const matchCompetitionSeperator = (matches, matchType) => (
 )
 
 export {
-    getRandomPlayers,
+    getSelection,
     validationHandler,
     getFirebaseDataHandler,
     dateConvertor,

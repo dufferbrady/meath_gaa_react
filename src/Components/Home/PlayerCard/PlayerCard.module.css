@@ -4,14 +4,13 @@
     align-items: center;
     background-color: #FFD306;
     padding: 2px;
-}
-
-.Player_Container:hover {
-    transform: scale(1.01);
+    width: 200px;
+    border-radius: 2px;
 }
 
 .Players_Image {
     height: 12em;
+    width: 90%;
 }
 
 .Player_Name {
