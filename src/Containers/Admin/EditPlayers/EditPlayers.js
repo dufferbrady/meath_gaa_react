@@ -34,6 +34,22 @@ class EditMatches extends Component {
                 valid: false,
                 validationMessage: ''
             },
+            age: {
+                element: 'input',
+                value: '',
+                config: {
+                    name: 'age_input',
+                    type: 'number',
+                    label: 'Age',
+                    required: true
+                },
+                showLabel: true,
+                validation: {
+                    required: true,
+                },
+                valid: false,
+                validationMessage: ''
+            },
             position: {
                 element: 'select',
                 value: '',
@@ -42,16 +58,16 @@ class EditMatches extends Component {
                     type: 'select',
                     label: 'Position',
                     options: [
-                        {key: 'GK', value: 'Goalkeeper'},
-                        {key: 'DF', value: 'Corner Back'},
-                        {key: 'DF', value: 'Full Back'},
-                        {key: 'DF', value: 'Wing Back'},
-                        {key: 'DF', value: 'Center Back'},
-                        {key: 'MD', value: 'Midfield'},
-                        {key: 'FW', value: 'Wing Forward'},
-                        {key: 'FW', value: 'Center Forward'},
-                        {key: 'FW', value: 'Corner Forward'},
-                        {key: 'FW', value: 'Full Forward'},
+                        { key: 'GK', value: 'Goalkeeper' },
+                        { key: 'DF', value: 'Corner Back' },
+                        { key: 'DF', value: 'Full Back' },
+                        { key: 'DF', value: 'Wing Back' },
+                        { key: 'DF', value: 'Center Back' },
+                        { key: 'MD', value: 'Midfield' },
+                        { key: 'FW', value: 'Wing Forward' },
+                        { key: 'FW', value: 'Center Forward' },
+                        { key: 'FW', value: 'Corner Forward' },
+                        { key: 'FW', value: 'Full Forward' },
                     ]
                 },
                 showLabel: true,
@@ -276,29 +292,51 @@ class EditMatches extends Component {
                             filename={(filename) => this.storeFilenameHandler(filename)}
                             fileURL={(url) => this.storeFileURLHandler(url)} />
 
-                        <Formfield
-                            add={{
-                                width: '75%',
-                                padding: '15px 10px',
-                                borderRadius: '4px',
-                                border: 'transparent',
-                                marginBottom: '5vh',
-                                boxSizing: 'border-box'
-                            }}
-                            label={{
-                                background: '#259C41',
-                                color: '#FED206',
-                                fontSize: '1.5rem',
-                                padding: '5px 10px',
-                                marginBottom: '20px'
-                            }}
-                            id={'name'}
-                            formData={this.state.formData.name}
-                            change={input => this.updateFormHandler(input)} />
+                        <div className={classes.InfoBlock_1}>
+                            <Formfield formStyle={{marginRight: '10%'}}
+                                add={{
+                                    flexGrow: '50%',
+                                    padding: '15px 10px',
+                                    borderRadius: '4px',
+                                    border: 'transparent',
+                                    marginBottom: '5vh',
+                                    boxSizing: 'border-box',
+                                                             
+                                }}
+                                label={{
+                                    background: '#259C41',
+                                    color: '#FED206',
+                                    fontSize: '1.5rem',
+                                    padding: '5px 10px',
+                                    marginBottom: '20px'
+                                }}
+                                id={'name'}
+                                formData={this.state.formData.name}
+                                change={input => this.updateFormHandler(input)} />
+                            <Formfield
+                                add={{
+                                    width: '50%',
+                                    padding: '15px 10px',
+                                    borderRadius: '4px',
+                                    border: 'transparent',
+                                    marginBottom: '5vh',
+                                    boxSizing: 'border-box'
+                                }}
+                                label={{
+                                    background: '#259C41',
+                                    color: '#FED206',
+                                    fontSize: '1.5rem',
+                                    padding: '5px 10px',
+                                    marginBottom: '20px'
+                                }}
+                                id={'age'}
+                                formData={this.state.formData.age}
+                                change={input => this.updateFormHandler(input)} />
+                        </div>
 
                         <Formfield
                             add={{
-                                width: '75%',
+                                width: '100%',
                                 padding: '15px 10px',
                                 borderRadius: '4px',
                                 border: 'transparent',
@@ -322,7 +360,7 @@ class EditMatches extends Component {
 
                         <Formfield
                             add={{
-                                width: '75%',
+                                width: '100%',
                                 padding: '15px 10px',
                                 borderRadius: '4px',
                                 border: 'transparent',

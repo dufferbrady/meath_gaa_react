@@ -1,13 +1,13 @@
 import React from 'react';
 import classes from './FormField.module.css';
 
-const FormField = ({ label, add, formData, id, change }) => {
+const FormField = ({ label, add, formData, id, change, formStyle }) => {
 
     let formTemplate = null;
     switch (formData.element) {
         case ('input'):
             formTemplate = (
-                <div className={classes.FormField}>
+                <div className={classes.FormField} style={{...formStyle}}>
                     {formData.showLabel ?
                         <div
                             style={{
@@ -29,7 +29,7 @@ const FormField = ({ label, add, formData, id, change }) => {
             break;
         case ('select'):
             formTemplate = (
-                <div>
+                <div style={{...formStyle}}>
                     {formData.showLabel ?
                         <div
                             style={{

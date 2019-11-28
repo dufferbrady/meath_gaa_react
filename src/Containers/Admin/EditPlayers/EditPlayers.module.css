@@ -1,12 +1,17 @@
 .Container {
-    width: 50%;
+    width: 40%;
     margin: 40px 75px;
 }
 
+.InfoBlock_1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
 .Header {
     width: 50%;
     padding: 15px 10px;
-    /* border-radius: 4px; */
     border: transparent;
     margin-bottom: 10vh;
     box-sizing: border-box;
@@ -90,4 +95,14 @@
     transform: scale(1.05);
     background: #FED206;
     color: #259C41;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input:focus {
+    outline: none
 }

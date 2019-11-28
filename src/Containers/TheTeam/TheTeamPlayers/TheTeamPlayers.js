@@ -287,7 +287,7 @@ class TheTeamPlayers extends Component {
                                     <div className={classes.Info}>
                                         <div className={classes.InfoBlock}>
                                             <span className={classes.InfoHeader}>Age</span>
-                                            <span>25</span>
+                                            <span>{this.state.selectPlayer.age}</span>
                                         </div>
                                         <div className={classes.InfoBlock}>
                                             <span className={classes.InfoHeader}>Club</span>
