@@ -15,6 +15,7 @@ class LeagueFixtures extends Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0,0);
         firebaseLeaguePostions
             .once('value')
             .then(snapshot => {

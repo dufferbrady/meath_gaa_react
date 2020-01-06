@@ -15,6 +15,7 @@ class ChampionshipContainer extends Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0,0);
         firebaseChampionshipPostions
             .once('value')
             .then(snapshot => {

@@ -36,6 +36,7 @@ class TheTeamPlayers extends Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0,0);
         firebasePlayers
             .once('value')
             .then(snapshot => {
@@ -260,6 +261,7 @@ class TheTeamPlayers extends Component {
         } else {
             modal = (
                 <Modal
+                    add={{top: '30%'}}
                     show={this.state.showBackdrop}
                     click={value => this.toggleBackdropHandler(false)}
                     cancelModal={value => this.toggleBackdropHandler(false)}>

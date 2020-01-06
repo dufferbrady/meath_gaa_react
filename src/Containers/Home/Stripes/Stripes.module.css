@@ -1,11 +1,10 @@
 .Stripes_Wrapper {
     margin: 0 auto;
     position: relative;
-    width: 80%;
+    max-width: 80%;
     display: flex;
     flex-flow: row nowrap;
     z-index: 10;
-    /* justify-content: space-evenly; */
 }
 
 .Stripe {
@@ -30,9 +29,3 @@
     width: 230px;
     height: 1200px;
 }
-
-/* .Stripe {
-    width: 15%;
-    height: 1200px;
-    position: absolute;
-} */

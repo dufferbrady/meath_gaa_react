@@ -195,6 +195,7 @@ class MatchesList extends Component {
             const match = this.state.moreMatchInfo
             modal = (
                 <Modal
+                    add={{ top: '50%' }}
                     show={this.state.showBackdrop}
                     click={value => this.toggleBackdropHandler(false)}
                     cancelModal={value => this.toggleBackdropHandler(false)}>
